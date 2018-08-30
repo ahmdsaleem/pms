@@ -7,8 +7,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>@yield('pageTitle')</title>
 
-    @include('includes.stylesheets')
     @yield('stylesheets')
+    @include('includes.stylesheets')
+
 
 </head>
 <body class="with-side-menu">
@@ -23,8 +24,9 @@
 </div><!--.page-content-->
 
 
-@include('includes.scripts')
 @yield('scripts')
+@include('includes.scripts')
+
 </body>
 
 </html>
