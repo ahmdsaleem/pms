@@ -13,10 +13,16 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
 
-        $role=Role::create([
-            'id' => 1,
+        $role1=Role::create([
+            'id' => '1',
             'name' => 'admin',
         ]);
+
+        $role2=Role::create([
+            'id' => '2',
+            'name' => 'user',
+        ]);
+
 
         $user = User::create([
             'name' => 'Ahmad Saleem',

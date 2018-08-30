@@ -26,6 +26,10 @@ Route::group(['middleware' =>'auth'],function (){
         'as' => 'users'
     ]);
 
+    Route::post('/user/store',[
+        'uses' => 'UsersController@store',
+        'as' => 'user.store'
+    ]);
 
 
 

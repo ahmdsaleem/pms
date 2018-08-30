@@ -1,9 +1,9 @@
 <nav class="side-menu side-menu-big-icon">
     <ul class="side-menu-list">
         <li class="opened">
-            <a href="#">
+            <a href="{{ route('dashboard') }}">
                 <i class="font-icon font-icon-home"></i>
-                <span class="lbl">Overview</span>
+                <span class="lbl">Home</span>
             </a>
         </li>
 

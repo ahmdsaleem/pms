@@ -30,13 +30,14 @@
         <div class="card-block">
             <div class="row">
     <div class="">
-        <form id="form-signup_v1" name="form-signup_v1" method="POST">
+        <form id="form-signup_v1" name="form-signup_v1" method="POST" action="{{ route('user.store') }}">
+            {{ csrf_field() }}
             <div class="form-group">
                 <label class="form-label" for="signup_v1-username">Username</label>
                 <div class="form-control-wrapper">
                     <input id="signup_v1-username"
                            class="form-control"
-                           name="signup_v1[username]"
+                           name="username"
                            type="text" data-validation="[L>=6, L<=18, MIXED]"
                            data-validation-message="$ must be between 6 and 18 characters. No special characters allowed."
                            data-validation-regex="/^((?!admin).)*$/i"
@@ -48,7 +49,7 @@
                 <div class="form-control-wrapper">
                     <input id="signup_v1-email"
                            class="form-control"
-                           name="signup_v1[email]"
+                           name="email"
                            type="text"
                            data-validation="[EMAIL]">
                 </div>
@@ -58,7 +59,7 @@
                 <div class="form-control-wrapper">
                     <input id="signup_v1-password"
                            class="form-control"
-                           name="signup_v1[password]"
+                           name="password"
                            type="password" data-validation="[L>=6]"
                            data-validation-message="$ must be at least 6 characters">
                 </div>
@@ -68,8 +69,8 @@
                 <div class="form-control-wrapper">
                     <input id="signup_v1-password-confirm"
                            class="form-control"
-                           name="signup_v1[password-confirm]"
-                           type="password" data-validation="[V==signup_v1[password]]"
+                           name="password-confirm"
+                           type="password" data-validation="[V==password]"
                            data-validation-message="$ does not match the password">
                 </div>
             </div>
@@ -99,24 +100,6 @@
              Validation
              ========================================================================== */
 
-            $('#form-signin_v1').validate({
-                submit: {
-                    settings: {
-                        inputContainer: '.form-group'
-                    }
-                }
-            });
-
-            $('#form-signin_v2').validate({
-                submit: {
-                    settings: {
-                        inputContainer: '.form-group',
-                        errorListClass: 'form-error-text-block',
-                        display: 'block',
-                        insertion: 'prepend'
-                    }
-                }
-            });
 
             $('#form-signup_v1').validate({
                 submit: {
@@ -127,14 +110,6 @@
                 }
             });
 
-            $('#form-signup_v2').validate({
-                submit: {
-                    settings: {
-                        inputContainer: '.form-group',
-                        errorListClass: 'form-tooltip-error'
-                    }
-                }
-            });
         });
     </script>
     <script src="{{ asset('js/app.js') }}"></script>

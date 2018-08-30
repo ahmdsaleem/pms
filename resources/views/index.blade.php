@@ -8,9 +8,9 @@
 
     @section('stylesheets')
 
-        <link rel="stylesheet" href="css/lib/font-awesome/font-awesome.min.css">
-        <link rel="stylesheet" href="css/lib/bootstrap/bootstrap.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="{{ asset('css/lib/font-awesome/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/lib/bootstrap/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
     @endsection
 
@@ -23,11 +23,11 @@
 
     @section('scripts')
 
-        <script src="js/lib/jquery/jquery.min.js"></script>
-        <script src="js/lib/tether/tether.min.js"></script>
-        <script src="js/lib/bootstrap/bootstrap.min.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="js/app.js"></script>
+        <script src="{{ asset('js/lib/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/lib/tether/tether.min.js') }}"></script>
+        <script src="{{ asset('js/lib/bootstrap/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/plugins.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
 
 
     @endsection
