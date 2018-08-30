@@ -45,10 +45,9 @@
                         {{ $user->role->name }}
                     </td>
                     <td>
-                        <i class="operationicon glyphicon glyphicon-eye-open"></i>
-                        <i class="operationicon glyphicon glyphicon-edit"></i>
+                        <a href="{{ route('user.profile',['id'=> $user->id]) }}"><i class="operationicon glyphicon glyphicon-eye-open"></i></a>
                         @if(auth()->user()->id!=$user->id)
-                        <i class="operationicon glyphicon glyphicon-trash"></i>
+                            <a href="{{ route('user.delete',['id' => $user->id]) }}"><i class="operationicon glyphicon glyphicon-trash"></i></a>
                         @endif
                     </td>
                     <td class="table-date">{{ $user->created_at->diffForHumans() }} <i class="font-icon font-icon-clock"></i></td>

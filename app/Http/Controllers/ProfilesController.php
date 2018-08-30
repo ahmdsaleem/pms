@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class UsersController extends Controller
+class ProfilesController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $users = User::all();
-        return view('users.index')->with('users',$users);
+        //
     }
 
     /**
@@ -27,7 +25,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        //
     }
 
     /**
@@ -38,20 +36,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
-        $user=User::create([
-            'name' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-
-        $profile = Profile::create([
-            'user_id' => $user->id,
-        ]);
-
-
-        return redirect()->route('dashboard');
-
+        //
     }
 
     /**
@@ -62,7 +47,17 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $user=User::find($id);
+        if(Auth::id() == $id || ($user->role->id == 1))
+        {
+            return view('users.profile')->with('user', $user);
+
+        }
+        else{
+
+            return redirect()->back();
+        }
     }
 
     /**
@@ -96,9 +91,6 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $user= User::find($id);
-        $user->profile->delete();
-        $user->delete();
-        return redirect()->route('users');
+        //
     }
 }

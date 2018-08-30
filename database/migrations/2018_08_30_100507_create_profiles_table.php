@@ -17,7 +17,10 @@ class CreateProfilesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('avatar')->nullable();
-            $table->string('about')->nullable();
+            $table->text('about')->nullable();
+            $table->string('position')->default('Software Engineer');
+            $table->string('address')->default('Lahore');
+            $table->string('website')->default('www.thinkdonesolutions.com');
             $table->string('mobile')->nullable();
             $table->string('facebook')->nullable();
             $table->timestamps();

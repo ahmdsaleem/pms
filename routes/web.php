@@ -26,9 +26,20 @@ Route::group(['middleware' =>'auth'],function (){
         'as' => 'users'
     ]);
 
-    Route::post('/user/store',[
+    Route::post('/users',[
         'uses' => 'UsersController@store',
         'as' => 'user.store'
+    ]);
+
+    Route::get('/user/delete/{id}',[
+        'uses' => 'UsersController@destroy',
+        'as' => 'user.delete'
+
+    ]);
+
+    Route::get('/user/profile/{id}',[
+        'uses' => 'ProfilesController@show',
+        'as' => 'user.profile'
     ]);
 
 

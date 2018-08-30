@@ -41,6 +41,12 @@
             </ul>
         </li>
 
+        <li>
+            <a href="{{ route('user.profile',['id' => auth()->user()->id]) }}">
+                <i class="glyphicon glyphicon-user"></i>
+                <span class="lbl">Profile</span>
+            </a>
+        </li>
 
         <li>
             <a href="#">

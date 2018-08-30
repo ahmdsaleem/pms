@@ -38,8 +38,8 @@
                     <input id="signup_v1-username"
                            class="form-control"
                            name="username"
-                           type="text" data-validation="[L>=6, L<=18, MIXED]"
-                           data-validation-message="$ must be between 6 and 18 characters. No special characters allowed."
+                           type="text" data-validation="[L>=5, L<=18, MIXED]"
+                           data-validation-message="$ must be between 5 and 18 characters. No special characters allowed."
                            data-validation-regex="/^((?!admin).)*$/i"
                            data-validation-regex-message="The word &quot;Admin&quot; is not allowed in the $">
                 </div>
