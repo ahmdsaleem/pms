@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Role;
+use App\Profile;
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -30,5 +31,11 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('ahmad9697'),
             'role_id' => '1',
         ]);
+
+
+        $profile= Profile::create([
+           'user_id' => $user->id,
+        ]);
+
     }
 }

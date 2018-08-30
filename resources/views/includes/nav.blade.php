@@ -18,6 +18,7 @@
             </ul>
         </li>
 
+        @if(auth()->user()->role->id==1)
         <li class="with-sub">
 	            <span>
 	                <i class="font-icon font-icon-users"></i>
@@ -28,7 +29,7 @@
                 <li><a href="{{ route('user.create') }}"><span class="lbl">Add New</span></a></li>
             </ul>
         </li>
-
+        @endif
         <li class="with-sub">
 	            <span>
 	                <i class="font-icon font-icon-wallet"></i>

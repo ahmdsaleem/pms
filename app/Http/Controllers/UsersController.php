@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Profile;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
 
     public function index()
     {
@@ -38,6 +44,11 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
+
+        $profile = Profile::create([
+            'user_id' => $user->id,
+        ]);
+
 
         return redirect()->route('dashboard');
 

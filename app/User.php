@@ -32,6 +32,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\Role');
     }
 
+    public function profile()
+    {
+        return $this->hasOne('App\Profile');
+    }
+
 }
 
 
