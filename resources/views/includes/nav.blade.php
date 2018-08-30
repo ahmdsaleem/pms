@@ -24,8 +24,8 @@
 	                <span class="lbl">Users</span>
 	            </span>
             <ul>
-                <li><a href="#"><span class="lbl">List</span></a></li>
-                <li><a href="#"><span class="lbl">Add New</span></a></li>
+                <li><a href="{{ route('users') }}"><span class="lbl">List</span></a></li>
+                <li><a href="{{ route('user.create') }}"><span class="lbl">Add New</span></a></li>
             </ul>
         </li>
 

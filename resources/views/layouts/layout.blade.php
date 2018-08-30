@@ -6,9 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>@yield('pageTitle')</title>
-
+    <link href="img/favicon.144x144.html" rel="apple-touch-icon" type="image/png" sizes="144x144">
+    <link href="img/favicon.114x114.html" rel="apple-touch-icon" type="image/png" sizes="114x114">
+    <link href="img/favicon.72x72.html" rel="apple-touch-icon" type="image/png" sizes="72x72">
+    <link href="img/favicon.57x57.html" rel="apple-touch-icon" type="image/png">
+    <link href="img/favicon.html" rel="icon" type="image/png">
+    <link href="img/favicon-2.html" rel="shortcut icon">
     @yield('stylesheets')
-    @include('includes.stylesheets')
 
 
 </head>
@@ -24,9 +28,8 @@
 </div><!--.page-content-->
 
 
-@yield('scripts')
-@include('includes.scripts')
 
+@yield('scripts')
 </body>
 
 </html>

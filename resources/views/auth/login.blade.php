@@ -52,9 +52,9 @@
                         <input type="checkbox" id="signed-in" name="remember" {{ old('remember') ? 'checked' : '' }}/>
                         <label for="signed-in">Keep me signed in</label>
                     </div>
-                    <div class="float-right reset">
-                        <a href="{{ route('password.request') }}">Reset Password</a>
-                    </div>
+                    {{--<div class="float-right reset">--}}
+                        {{--<a href="{{ route('password.request') }}">Reset Password</a>--}}
+                    {{--</div>--}}
                 </div>
                 <button type="submit" class="btn btn-rounded">Sign in</button>
 

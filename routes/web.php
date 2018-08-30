@@ -11,20 +11,27 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+Route::group(['middleware' =>'auth'],function (){
+    Route::get('/', 'HomeController@index')->name('dashboard');
+
+    Route::get('/user/create',[
+        'uses' => 'UsersController@create',
+        'as' => 'user.create'
+    ]);
+
+    Route::get('/users',[
+        'uses' => 'UsersController@index',
+        'as' => 'users'
+    ]);
 
 
-Route::get('/home',function (){
-    return view('home');
+
+
 });
 
-Route::get('/dummylogin',function (){
 
-    return view('login');
-});
+
+
+
