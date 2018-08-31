@@ -43,6 +43,7 @@ Route::group(['middleware' =>'auth'],function (){
     ]);
 
 
+    Route::get('/api/users', 'UsersController@getUsers')->name('api.users');
 
 });
 

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/lib/bootstrap-table/bootstrap-table.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/lib/font-awesome/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/lib/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 
@@ -17,42 +18,17 @@
 
 @section('content')
 
-    <div class="box-typical-body offset-md-1 col-md-10">
+    <div class="box-typical-body offset-md-2 col-md-6">
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover" id="usertable">
                 <thead>
                 <tr>
-                    <th></th>
                     <th>Name</th>
-                    <th>About</th>
-                    <th>Role</th>
-                    <th>Operations</th>
-                    <th>Date Created</th>
+                    <th>Email</th>
+                    {{--<th>Operations</th>--}}
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
-                <tr>
-                    <td class="table-photo">
-                        <img src="img/photo-64-1.jpg" alt="" data-toggle="tooltip" data-placement="bottom" title="Nicholas<br/>Barrett">
-                    </td>
-                    <td>
-                        {{ $user->name }}
-                    </td>
-
-                    <td class="color-blue-grey-lighter">{{ $user->profile->about }}</td>
-                    <td>
-                        {{ $user->role->name }}
-                    </td>
-                    <td>
-                        <a href="{{ route('user.profile',['id'=> $user->id]) }}"><i class="operationicon glyphicon glyphicon-eye-open"></i></a>
-                        @if(auth()->user()->id!=$user->id)
-                            <a href="{{ route('user.delete',['id' => $user->id]) }}"><i class="operationicon glyphicon glyphicon-trash"></i></a>
-                        @endif
-                    </td>
-                    <td class="table-date">{{ $user->created_at->diffForHumans() }} <i class="font-icon font-icon-clock"></i></td>
-                </tr>
-                @endforeach
                 </tbody>
             </table>
         </div>
@@ -70,6 +46,20 @@
 
     <script src="{{ asset('js/lib/peity/jquery.peity.min.js') }}"></script>
     <script src="{{ asset('js/lib/table-edit/jquery.tabledit.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#usertable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "{{ route('api.users') }}",
+                "columns": [
+                    { "data": "name" },
+                    { "data": "email" }
+                ]
+            });
+        });
+    </script>
 
     <script src="{{ asset('js/app.js') }}"></script>
 

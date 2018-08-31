@@ -37,5 +37,8 @@ class UsersTableSeeder extends Seeder
            'user_id' => $user->id,
         ]);
 
+
+        factory(App\User::class,5000)->create();
+
     }
 }
