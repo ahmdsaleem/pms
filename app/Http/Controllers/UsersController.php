@@ -104,7 +104,7 @@ class UsersController extends Controller
 
     public function getUsers()
     {
-        $query = User::select('name', 'email', 'created_at');
+        $query = User::select('id','name', 'email');
         return datatables($query)->make(true);
         //return datatables()->of(User::query())->toJson();
         // return datatables()->of(DB::table('users'))->toJson();

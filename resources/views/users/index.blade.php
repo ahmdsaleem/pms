@@ -18,14 +18,15 @@
 
 @section('content')
 
-    <div class="box-typical-body offset-md-2 col-md-6">
+    <div class="box-typical-body offset-md-1 col-md-8">
         <div class="table-responsive">
             <table class="table table-hover" id="usertable">
                 <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    {{--<th>Operations</th>--}}
+                    <th>Operations</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -54,6 +55,7 @@
                 "serverSide": true,
                 "ajax": "{{ route('api.users') }}",
                 "columns": [
+                    {"data": "id"},
                     { "data": "name" },
                     { "data": "email" }
                 ]

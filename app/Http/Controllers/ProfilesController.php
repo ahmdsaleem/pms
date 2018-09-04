@@ -49,7 +49,7 @@ class ProfilesController extends Controller
     {
 
         $user=User::find($id);
-        if(Auth::id() == $id || ($user->role->id == 1))
+        if(Auth::id() == $id || (Auth::user()->role->id == 1))
         {
             return view('users.profile')->with('user', $user);
 
