@@ -46,6 +46,7 @@
                             {{ csrf_field() }}
                             <div class="modal-body">
                                 <span id="form_output"></span>
+
                                 <div class="form-group">
                                     <label class="form-label" for="signup_v1-username">Username</label>
                                     <div class="form-control-wrapper">
@@ -120,6 +121,16 @@
                                 {{ csrf_field() }}
                                 <div class="modal-body">
                                     <span id="form_output"></span>
+                                    <div class="form-group">
+                                        <label class="form-label" for="signup_v1-email">ID</label>
+                                        <div class="form-control-wrapper">
+                                            <input id="id"
+                                                   class="form-control"
+                                                   name="id"
+                                                   type="text"
+                                                   readonly>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="form-label" for="signup_v1-username">Username</label>
                                         <div class="form-control-wrapper">
@@ -298,6 +309,7 @@
             dataType: "JSON",
             success: function(data) {
                 $('#update-user-modal').modal('show');
+                $('#id').val(data.id);
                 $('#username').val(data.name);
                 $('#email').val(data.email);
                 $('#password').val(data.password);
@@ -316,13 +328,13 @@
         })
         var form_data = $('#update-user-form').serialize();
         $.ajax({
-            url:"user/update" + "/",
+            url:"user/update" + "/"+$('#id').val(),
             method:"POST",
             data:form_data,
             dataType:"json",
             success:function(data)
             {
-                $('#update-user-modal').modal('hide');
+                // $('#update-user-modal').modal('hide');
                 $('#usertable').DataTable().ajax.reload();
                 swal({
                     title: 'Success!',

@@ -59,15 +59,17 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $user->name=$request->username;
-        $user->email=$request->email;
-        $user->password=bcrypt($request->password);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'User Updated'
-        ]);
+        dd($request->all());
+//        $user = User::find($id);
+//        $user->name=$request->username;
+//        $user->email=$request->email;
+//        $user->password=bcrypt($request->password);
+//
+//        return response()->json([
+//            'success' => true,
+//            'message' => 'User Updated'
+//        ]);
     }
 
 
