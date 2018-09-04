@@ -16,8 +16,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = User::all();
-        return view('users.index')->with('users',$users);
+        return view('users.index');
     }
 
     /**
@@ -104,10 +103,13 @@ class UsersController extends Controller
 
     public function getUsers()
     {
-        $query = User::select('id','name', 'email');
-        return datatables($query)->make(true);
-        //return datatables()->of(User::query())->toJson();
-        // return datatables()->of(DB::table('users'))->toJson();
+        $user = User::all();
+        return datatables($user)
+            ->addColumn('action',function($user)
+            {
+                return '<a onclick="deleteData('.$user->id.')"> Delete </a>';
+            })->make(true);
+
     }
 
 }
