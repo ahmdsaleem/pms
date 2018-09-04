@@ -19,25 +19,15 @@ class UsersController extends Controller
         return view('users.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('users.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-//        dd($request->all());
         $user=User::create([
             'name' => $request->username,
             'email' => $request->email,
@@ -48,51 +38,30 @@ class UsersController extends Controller
             'user_id' => $user->id,
         ]);
 
-
-        return redirect()->route('dashboard');
-
+        return response()->json([
+            'success' => true,
+            'message' => 'User Created'
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $user= User::find($id);
@@ -107,7 +76,8 @@ class UsersController extends Controller
         return datatables($user)
             ->addColumn('action',function($user)
             {
-                return '<a onclick="deleteData('.$user->id.')"> Delete </a>';
+                return '<button onclick="editUser('.$user->id.')"> Edit </button>'.
+                        '<button onclick="deleteUser('.$user->id.')"> Delete </button>';
             })->make(true);
 
     }

@@ -91,7 +91,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" id="save" class="btn btn-rounded btn-primary" >Save User</button>
+                            <button type="button" id="save" class="btn btn-rounded btn-primary" >Save User</button>
                         </div>
                     </div>
 
@@ -139,6 +139,17 @@
             <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js') }}"></script>
 <script>
+
+
+    function deleteUser(id){
+        alert("delete User " + id);
+    }
+
+    function editUser(id)
+    {
+        alert("Edit User " + id);
+    }
+
     $(document).ready( function () {
         table = $('#usertable').DataTable({
             "processing": true,
@@ -151,6 +162,33 @@
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });
+
+        $('#save').on('click',function(){
+            event.preventDefault();
+            $.ajaxSetup({
+                header:$('meta[name="_token"]').attr('content')
+            })
+            var form_data = $('#form-signup_v1').serialize();
+            $.ajax({
+                url:"{{ route('user.store') }}",
+                method:"POST",
+                data:form_data,
+                dataType:"json",
+                success:function(data)
+                {
+                    $('#create-user').modal('hide');
+                    $('#usertable').DataTable().ajax.reload();
+                    swal({
+                        title: 'Success!',
+                        text: data.message,
+                        type: 'success',
+                        timer: '4000'
+                    })
+                }
+            })
+        });
+
     });
 </script>
+
 @endsection
