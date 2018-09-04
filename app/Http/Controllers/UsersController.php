@@ -64,10 +64,15 @@ class UsersController extends Controller
 
     public function destroy($id)
     {
-        $user= User::find($id);
-        $user->profile->delete();
-        $user->delete();
-        return redirect()->route('users');
+        $user = User::findOrFail($id);
+
+        User::destroy($id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User Deleted'
+        ]);
+
     }
 
     public function getUsers()

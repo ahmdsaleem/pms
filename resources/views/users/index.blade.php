@@ -140,9 +140,37 @@
     <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js') }}"></script>
 <script>
 
-
     function deleteUser(id){
-        alert("delete User " + id);
+        var csrf_token = $('meta[name="csrf-token"]').attr('content');
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function () {
+            $.ajax({
+                url : "user/delete" + '/' + id,
+                type : "GET",
+                success : function(data) {
+                    table.ajax.reload();
+                    swal({
+                        title: 'Success!',
+                        text: data.message,
+                        type: 'success',
+                        timer: '1500'
+                    })
+                },
+                error : function () {
+                    swal({
+                        title: 'Oops...',
+                        text: data.message,
+                        type: 'error',
+                        timer: '1500'
+                    })
+                }
+            });
+        });
     }
 
     function editUser(id)
