@@ -21,6 +21,18 @@ Route::group(['middleware' =>'auth'],function (){
         'as' => 'user.create'
     ]);
 
+    Route::get('/user/edit/{id}',[
+        'uses' => 'UsersController@edit',
+        'as' => 'user.edit'
+    ]);
+
+    Route::post('/user/update/{id}',[
+        'uses' => 'UsersController@update',
+        'as' => 'user.update'
+    ]);
+
+
+
     Route::get('/users',[
         'uses' => 'UsersController@index',
         'as' => 'users'
