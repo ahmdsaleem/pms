@@ -22,6 +22,10 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'password' =>'required'
+        ]);
+
         $user=User::create([
             'name' => $request->username,
             'email' => $request->email,
@@ -58,7 +62,10 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->name=$request->username;
         $user->email=$request->email;
-        $user->password=bcrypt($request->password);
+        $password= $request->get('password');
+        if(!empty($password)) {
+            $user->password = bcrypt($request->password);
+        }
         $user->save();
         return response()->json([
             'success' => true,
@@ -86,8 +93,8 @@ class UsersController extends Controller
         return datatables($user)
             ->addColumn('action',function($user)
             {
-                return '<button onclick="editUser('.$user->id.')"> Edit </button>'.
-                        '<button onclick="deleteUser('.$user->id.')"> Delete </button>';
+                return '<a onclick="editUser('.$user->id.')"> <l title="Edit User Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
+                        '<a onclick="deleteUser('.$user->id.')"> <l title="Delete User" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
             })->make(true);
 
     }

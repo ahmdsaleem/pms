@@ -122,10 +122,7 @@
                                             <input id="username"
                                                    class="form-control"
                                                    name="username"
-                                                   type="text" data-validation="[L>=5, L<=18, MIXED]"
-                                                   data-validation-message="$ must be between 5 and 18 characters. No special characters allowed."
-                                                   data-validation-regex="/^((?!admin).)*$/i"
-                                                   data-validation-regex-message="The word &quot;Admin&quot; is not allowed in the $">
+                                                   type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -134,8 +131,7 @@
                                             <input id="email"
                                                    class="form-control"
                                                    name="email"
-                                                   type="text"
-                                                   data-validation="[EMAIL]">
+                                                   type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -143,19 +139,7 @@
                                         <div class="form-control-wrapper">
                                             <input id="password"
                                                    class="form-control"
-                                                   name="password"
-                                                   type="password" data-validation="[L>=6]"
-                                                   data-validation-message="$ must be at least 6 characters">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="signup_v1-password-confirm">Confirm Password</label>
-                                        <div class="form-control-wrapper">
-                                            <input id="password-confirm"
-                                                   class="form-control"
-                                                   name="password-confirm"
-                                                   type="password" data-validation="[V==password]"
-                                                   data-validation-message="$ does not match the password">
+                                                   name="password">
                                         </div>
                                     </div>
                                 </div>
@@ -337,29 +321,61 @@
         $('#form-signup_v1').validate({
 
             rules: {
+                username: {
+                    required: true,
+                    minlength:5,
+
+                },
                 email: {
                     required: true,
-                    minlength: 8
+                    email: true
                 },
-                pass: "required"
+
+                password:{
+                    required:true
+                }
+
             },
             messages: {
                 email: {
-                    required: "Please provide your Login",
-                    minlength: "Your Login must be at least 8 characters"
+                    required: "Please provide your email",
                 },
-                pass: "Please provide your password"
+
             }
 
         });
+        $('#update-user-form').validate({
 
+            rules: {
+                username: {
+                    required: true,
+                    minlength:5,
+
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+
+                password:{
+
+                }
+
+            },
+            messages: {
+                email: {
+                    required: "Please provide your email",
+                },
+
+            }
+
+        });
 
 
         $('#save').on('click',function(){
             event.preventDefault();
             if($('#form-signup_v1').valid())
             {
-                $('#create-user').modal('hide');
                 createUser();
             }
 
@@ -371,7 +387,9 @@
 
         $('#update').on('click',function(){
             event.preventDefault();
-            userUpdate();
+            if($('#update-user-form').valid()) {
+                userUpdate();
+            }
         });
     });
 </script>
