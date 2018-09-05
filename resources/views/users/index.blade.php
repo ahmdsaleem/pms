@@ -53,10 +53,7 @@
                                         <input id="signup_v1-username"
                                                class="form-control"
                                                name="username"
-                                               type="text" data-validation="[L>=5, L<=18, MIXED]"
-                                               data-validation-message="$ must be between 5 and 18 characters. No special characters allowed."
-                                               data-validation-regex="/^((?!admin).)*$/i"
-                                               data-validation-regex-message="The word &quot;Admin&quot; is not allowed in the $">
+                                               type="text">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -65,8 +62,7 @@
                                         <input id="signup_v1-email"
                                                class="form-control"
                                                name="email"
-                                               type="text"
-                                               data-validation="[EMAIL]">
+                                               type="text">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -75,18 +71,7 @@
                                         <input id="signup_v1-password"
                                                class="form-control"
                                                name="password"
-                                               type="password" data-validation="[L>=6]"
-                                               data-validation-message="$ must be at least 6 characters">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" for="signup_v1-password-confirm">Confirm Password</label>
-                                    <div class="form-control-wrapper">
-                                        <input id="signup_v1-password-confirm"
-                                               class="form-control"
-                                               name="password-confirm"
-                                               type="password" data-validation="[V==password]"
-                                               data-validation-message="$ does not match the password">
+                                               type="password">
                                     </div>
                                 </div>
                         </div>
@@ -118,7 +103,6 @@
                             </button>
                             <h4 class="modal-title" id="myModalLabel">Edit User</h4>
                             <form id="update-user-form" name="form-signup_v1">
-                                {{ csrf_field() }}
                                 <div class="modal-body">
                                     <span id="form_output"></span>
                                     <div class="form-group">
@@ -219,9 +203,7 @@
     <script src="{{ asset('js/lib/peity/jquery.peity.min.js') }}"></script>
     <script src="{{ asset('js/lib/table-edit/jquery.tabledit.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-    <script src="{{ asset('js/lib/html5-form-validation/jquery.validation.min.js') }}"></script>
-
-            <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/lib/html5-form-validation/jquery.validate.min.js') }}"></script>
             <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js') }}"></script>
 <script>
@@ -245,6 +227,7 @@
 
     function createUser()
     {
+
         $.ajaxSetup({
             header:$('meta[name="_token"]').attr('content')
         })
@@ -350,9 +333,38 @@
     $(document).ready( function () {
         loadUsersDataTable();
 
+        $('#form-signup_v1').validate({
+
+            rules: {
+                email: {
+                    required: true,
+                    minlength: 8
+                },
+                pass: "required"
+            },
+            messages: {
+                email: {
+                    required: "Please provide your Login",
+                    minlength: "Your Login must be at least 8 characters"
+                },
+                pass: "Please provide your password"
+            }
+
+        });
+
+
+
         $('#save').on('click',function(){
             event.preventDefault();
-            createUser();
+            if($('#form-signup_v1').valid())
+            {
+                $('#create-user').modal('hide');
+                alert('user is valid')
+                //createUser();
+            }
+
+
+
         });
 
 

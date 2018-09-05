@@ -14,12 +14,11 @@
 Auth::routes();
 
 Route::group(['middleware' =>'auth'],function (){
+
     Route::get('/', 'HomeController@index')->name('dashboard');
 
-    Route::get('/user/create',[
-        'uses' => 'UsersController@create',
-        'as' => 'user.create'
-    ]);
+    Route::get('/api/users', 'UsersController@getUsers')->name('api.users');
+
 
     Route::get('/user/edit/{id}',[
         'uses' => 'UsersController@edit',
@@ -30,7 +29,6 @@ Route::group(['middleware' =>'auth'],function (){
         'uses' => 'UsersController@update',
         'as' => 'user.update'
     ]);
-
 
 
     Route::get('/users',[
@@ -55,7 +53,6 @@ Route::group(['middleware' =>'auth'],function (){
     ]);
 
 
-    Route::get('/api/users', 'UsersController@getUsers')->name('api.users');
 
 });
 

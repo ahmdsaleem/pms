@@ -19,16 +19,13 @@
         </li>
 
         @if(auth()->user()->role->id==1)
-        <li class="with-sub">
-	            <span>
-	                <i class="font-icon font-icon-users"></i>
-	                <span class="lbl">Users</span>
-	            </span>
-            <ul>
-                <li><a href="{{ route('users') }}"><span class="lbl">List</span></a></li>
-                <li><a href="{{ route('user.create') }}"><span class="lbl">Add New</span></a></li>
-            </ul>
-        </li>
+            <li>
+                <a href="{{ route('users') }}">
+                    <i class="font-icon font-icon-users"></i>
+                    <span class="lbl">Users</span>
+                </a>
+            </li>
+
         @endif
         <li class="with-sub">
 	            <span>
