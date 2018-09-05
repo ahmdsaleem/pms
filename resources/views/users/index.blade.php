@@ -102,7 +102,8 @@
                                 <i class="font-icon-close-2"></i>
                             </button>
                             <h4 class="modal-title" id="myModalLabel">Edit User</h4>
-                            <form id="update-user-form" name="form-signup_v1">
+                            <form id="update-user-form" name="update-user-form">
+                                {{ csrf_field() }}
                                 <div class="modal-body">
                                     <span id="form_output"></span>
                                     <div class="form-group">
@@ -317,7 +318,7 @@
             dataType:"json",
             success:function(data)
             {
-                // $('#update-user-modal').modal('hide');
+                $('#update-user-modal').modal('hide');
                 $('#usertable').DataTable().ajax.reload();
                 swal({
                     title: 'Success!',
@@ -359,8 +360,7 @@
             if($('#form-signup_v1').valid())
             {
                 $('#create-user').modal('hide');
-                alert('user is valid')
-                //createUser();
+                createUser();
             }
 
 
