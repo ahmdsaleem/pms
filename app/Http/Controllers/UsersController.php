@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-
+//    const MODULE = 'user';
+// ToDO: add exception handling
     public function __construct()
     {
         $this->middleware('admin');
@@ -27,11 +28,11 @@ class UsersController extends Controller
         ]);
 
         $user=User::create([
-            'name' => $request->username,
+            'name' => $request->get('username'),
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-
+        // ToDO: remove profile
         $profile = Profile::create([
             'user_id' => $user->id,
         ]);
@@ -52,6 +53,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        // ToDO: format should be same
         return $user;
     }
 
@@ -59,16 +61,34 @@ class UsersController extends Controller
     {
 
 
-        $user = User::find($id);
-        $user->name=$request->username;
-        $user->email=$request->email;
-        $password= $request->get('password');
-        if(!empty($password)) {
-            $user->password = bcrypt($request->password);
-        }
-        $user->save();
+//        //$response = Response();
+//        $response =array();
+//        $response['success'] = true;
+//        $response['code'] = 200;
+//        $response['messages'] ='User has been created!';
+//        $response['data'] = null;
+
+//        try {
+            $user = User::find($id);
+            $user->name = $request->username;
+            $user->email = $request->email;
+            $password = $request->get('password');
+            if (!empty($password)) {
+                $user->password = bcrypt($request->password);
+            }
+            $user->save();
+//        }
+// catch (\Exception $ex){
+//            $response['success'] = false;
+//            $response['code'] = 204;
+//            $response['messages'] = trans(self::MODULE .'.' . $response['code']);
+//        }
+
+//        return json_encode($response);
+
         return response()->json([
             'success' => true,
+            // ToDO: should use code
             'message' => 'User Updated'
         ]);
     }
@@ -90,6 +110,8 @@ class UsersController extends Controller
     public function getUsers()
     {
         $user = User::all();
+
+        //ToDo: Replace this packege with custom code
         return datatables($user)
             ->addColumn('action',function($user)
             {

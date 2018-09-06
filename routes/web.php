@@ -19,33 +19,16 @@ Route::group(['middleware' =>'auth'],function (){
 
     Route::get('/api/users', 'UsersController@getUsers')->name('api.users');
 
+    Route::get('/users','UsersController@index')->name('users');
 
-    Route::get('/user/edit/{id}',[
-        'uses' => 'UsersController@edit',
-        'as' => 'user.edit'
-    ]);
+    Route::post('/users', 'UsersController@store')->name('user.store');
 
-    Route::post('/user/update/{id}',[
-        'uses' => 'UsersController@update',
-        'as' => 'user.update'
-    ]);
+    Route::delete('/users/{id}','UsersController@destroy')->name('user.delete');
 
+    Route::PUT('/users/{id}','UsersController@edit')->name('user.edit');
 
-    Route::get('/users',[
-        'uses' => 'UsersController@index',
-        'as' => 'users'
-    ]);
+    Route::patch('/users/{id}','UsersController@update')->name('user.update');
 
-    Route::post('/users',[
-        'uses' => 'UsersController@store',
-        'as' => 'user.store'
-    ]);
-
-    Route::get('/user/delete/{id}',[
-        'uses' => 'UsersController@destroy',
-        'as' => 'user.delete'
-
-    ]);
 
     Route::get('/user/profile/{id}',[
         'uses' => 'ProfilesController@show',
