@@ -3,43 +3,46 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Profile;
+use App\Classes\Response;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-//    const MODULE = 'user';
-// ToDO: add exception handling
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
+    const MODULE = 'user';
 
     public function index()
     {
         return view('users.index');
     }
 
-
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'password' =>'required'
-        ]);
+        $response=new Response();
 
-        $user=User::create([
-            'name' => $request->get('username'),
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-        // ToDO: remove profile
-        $profile = Profile::create([
-            'user_id' => $user->id,
-        ]);
+        try {
+
+            $this->validate($request, [
+                'password' => 'required'
+            ]);
+
+            $user = User::create([
+                'name' => $request->get('username'),
+                'email' => $request->get('email'),
+                'password' => bcrypt($request->get('password')),
+            ]);
+
+            $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
+        }
+        catch(\Exception $e)
+        {
+            $response->setResponse(false, 400, 'auth'.'.'.SELF::MODULE . '.' . '400');
+        }
+
 
         return response()->json([
-            'success' => true,
-            'message' => 'User Created'
+            'success' => $response->getStatus(),
+            'code' => $response->getCode(),
+            'message' => $response->getMessage()
         ]);
     }
 
@@ -60,15 +63,8 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
 
-
-//        //$response = Response();
-//        $response =array();
-//        $response['success'] = true;
-//        $response['code'] = 200;
-//        $response['messages'] ='User has been created!';
-//        $response['data'] = null;
-
-//        try {
+        $response=new Response();
+        try {
             $user = User::find($id);
             $user->name = $request->username;
             $user->email = $request->email;
@@ -77,32 +73,38 @@ class UsersController extends Controller
                 $user->password = bcrypt($request->password);
             }
             $user->save();
-//        }
-// catch (\Exception $ex){
-//            $response['success'] = false;
-//            $response['code'] = 204;
-//            $response['messages'] = trans(self::MODULE .'.' . $response['code']);
-//        }
-
-//        return json_encode($response);
+            $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
+            }
+            catch (\Exception $ex)
+            {
+                $response->setResponse(false, 400, 'auth'.'.'.SELF::MODULE . '.' . '400');
+            }
 
         return response()->json([
-            'success' => true,
-            // ToDO: should use code
-            'message' => 'User Updated'
+            'success' => $response->getStatus(),
+            'code' => $response->getCode(),
+            'message' => $response->getMessage()
         ]);
     }
 
 
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-
-        User::destroy($id);
+        $response=new Response();
+        try {
+            $user = User::findOrFail($id);
+            User::destroy($id);
+            $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
+        }
+        catch (\Exception $ex)
+        {
+            $response->setResponse(false, 400, 'auth'.'.'.SELF::MODULE . '.' . '400');
+        }
 
         return response()->json([
-            'success' => true,
-            'message' => 'User Deleted'
+            'success' => $response->getStatus(),
+            'code' => $response->getCode(),
+            'message' => $response->getMessage()
         ]);
 
     }
