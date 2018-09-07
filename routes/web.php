@@ -29,6 +29,35 @@ Route::group(['middleware' =>['auth','admin']],function (){
 
 Route::get('/test',function ()
 {
- echo trans('auth.user.200');
+    $users = \App\User::all();
+    $parameters=array();
+    $parameters['draw']=0;
+    $parameters['recordsTotal']=count($users);
+    $parameters['recordsFiltered']=count($users);
+
+    foreach ($users as $user)
+    {
+        $user['action']='<a onclick="editUser('.$user->id.')"> <l title="Edit User Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a onclick="editUser('.$user->id.')">'.
+            '<a onclick="deleteUser('.$user->id.')"> <l title="Delete User" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
+    }
+
+    $parameters['data']=$users;
+    $parameters['input']=array();
+    return $parameters;
+
+
+});
+
+
+Route::get('/datatableformat',function ()
+{
+    $users = \App\User::all();
+    return datatables($users)
+        ->addColumn('action',function($user)
+        {
+            return '<a onclick="editUser('.$user->id.')"> <l title="Edit User Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
+                '<a onclick="deleteUser('.$user->id.')"> <l title="Delete User" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
+        })->make(true);;
+
 });
 

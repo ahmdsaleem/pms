@@ -7,7 +7,6 @@
 @endsection
 
 @section('stylesheets')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/lib/bootstrap-table/bootstrap-table.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/lib/font-awesome/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/lib/bootstrap/bootstrap.min.css') }}">
@@ -108,13 +107,12 @@
                                 <div class="modal-body">
                                     <span id="form_output"></span>
                                     <div class="form-group">
-                                        <label class="form-label" for="signup_v1-email">ID</label>
                                         <div class="form-control-wrapper">
                                             <input id="id"
                                                    class="form-control"
                                                    name="id"
                                                    type="text"
-                                                   readonly>
+                                                   readonly hidden>
                                         </div>
                                     </div>
                                     <div class="form-group">

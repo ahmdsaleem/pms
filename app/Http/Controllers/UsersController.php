@@ -22,6 +22,8 @@ class UsersController extends Controller
         try {
 
             $this->validate($request, [
+                'username'=> 'required',
+                'email'=> 'required | email',
                 'password' => 'required'
             ]);
 
@@ -56,21 +58,25 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        // ToDO: format should be same
         return $user;
     }
 
     public function update(Request $request, $id)
     {
-
         $response=new Response();
         try {
-            $user = User::find($id);
-            $user->name = $request->username;
-            $user->email = $request->email;
+
+            $this->validate($request, [
+                'username'=> 'required',
+                'email'=> 'required | email',
+            ]);
+
+            $user = User::findOrFail($id);
+            $user->name = $request->get('username');
+            $user->email = $request->get('email');
             $password = $request->get('password');
             if (!empty($password)) {
-                $user->password = bcrypt($request->password);
+                $user->password = bcrypt($password);
             }
             $user->save();
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
@@ -109,17 +115,31 @@ class UsersController extends Controller
 
     }
 
-    public function getUsers()
+    public function getUsers(Request $request)
     {
-        $user = User::all();
 
-        //ToDo: Replace this packege with custom code
-        return datatables($user)
-            ->addColumn('action',function($user)
-            {
-                return '<a onclick="editUser('.$user->id.')"> <l title="Edit User Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
-                        '<a onclick="deleteUser('.$user->id.')"> <l title="Delete User" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
-            })->make(true);
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search['value']=true;
+
+        $users = User::skip($start)->take($length)->get();
+        $total_users= User::all()->count();
+
+        $parameters=array();
+        $parameters['draw']=$draw;
+        $parameters['recordsTotal']=$total_users;
+        $parameters['recordsFiltered']=$total_users;
+
+        foreach ($users as $user)
+        {
+            $user['action']='<a onclick="editUser('.$user->id.')"> <l title="Edit User Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
+                '<a onclick="deleteUser('.$user->id.')"> <l title="Delete User" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
+        }
+
+        $parameters['data']=$users;
+        $parameters['input']=array();
+        return $parameters;
 
     }
 
