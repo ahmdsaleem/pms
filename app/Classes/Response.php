@@ -4,6 +4,7 @@
 namespace App\Classes;
 class Response{
 
+
    var $status,$code,$message;
 
    public function setResponse($status,$code,$message)
@@ -28,10 +29,17 @@ class Response{
         return trans($this->message);
     }
 
-    public function test()
+    public function getResponse()
     {
-        echo 'hey';
+        $parameters=[
+            'status'=>$this->getStatus(),
+            'code'=>$this->getCode(),
+            'message'=>$this->getMessage()
+        ];
+
+        return $parameters;
     }
+
 
 
 }

@@ -40,12 +40,7 @@ class UsersController extends Controller
             $response->setResponse(false, 400, 'auth'.'.'.SELF::MODULE . '.' . '400');
         }
 
-
-        return response()->json([
-            'success' => $response->getStatus(),
-            'code' => $response->getCode(),
-            'message' => $response->getMessage()
-        ]);
+        return response()->json($response->getResponse());
     }
 
 
@@ -57,8 +52,16 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return $user;
+        $response= new Response();
+        try {
+            $user = User::findOrFail($id);
+            return reponse()->json($user);
+        }
+        catch (\Exception $ex)
+        {
+            $response->setResponse(false, 400, 'auth'.'.'.SELF::MODULE . '.' . '400');
+            return response()->json($response->getResponse());
+        }
     }
 
     public function update(Request $request, $id)
@@ -86,11 +89,7 @@ class UsersController extends Controller
                 $response->setResponse(false, 400, 'auth'.'.'.SELF::MODULE . '.' . '400');
             }
 
-        return response()->json([
-            'success' => $response->getStatus(),
-            'code' => $response->getCode(),
-            'message' => $response->getMessage()
-        ]);
+        return response()->json($response->getResponse());
     }
 
 
@@ -107,11 +106,7 @@ class UsersController extends Controller
             $response->setResponse(false, 400, 'auth'.'.'.SELF::MODULE . '.' . '400');
         }
 
-        return response()->json([
-            'success' => $response->getStatus(),
-            'code' => $response->getCode(),
-            'message' => $response->getMessage()
-        ]);
+        return response()->json($response->getResponse());
 
     }
 
@@ -133,8 +128,8 @@ class UsersController extends Controller
 
         foreach ($users as $user)
         {
-            $user['action']='<a onclick="editUser('.$user->id.')"> <l title="Edit User Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
-                '<a onclick="deleteUser('.$user->id.')"> <l title="Delete User" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
+            $user['action']='<a onclick="UserController.editUser('.$user->id.')"> <l title="Edit User Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
+                '<a onclick="UserController.deleteUser('.$user->id.')"> <l title="Delete User" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
         }
 
         $parameters['data']=$users;
