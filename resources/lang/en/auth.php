@@ -16,5 +16,8 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'user.205' => "Exception occured!",
-    'user.200' => "Operation Successfully Completed"
+    'user.200' => "Operation Successfully Completed",
+    'product.200'=> "Operation Successfully Completed",
+    'product.205' => "Exception occured!",
+
 ];

@@ -7,6 +7,18 @@ Route::group(['middleware' =>'auth'],function () {
 
     Route::get('/', 'HomeController@index')->name('dashboard');
 
+    Route::get('/products','ProductsController@index')->name('products');
+
+    Route::get('/api/products', 'ProductsController@getProducts')->name('api.products');
+
+    Route::post('/products', 'ProductsController@store')->name('product.store');
+
+    Route::PUT('/products/{id}','ProductsController@edit')->name('product.edit');
+
+    Route::patch('/products/{id}','ProductsController@update')->name('product.update');
+
+    Route::delete('/products/{id}','ProductsController@destroy')->name('product.delete');
+
 });
 
 

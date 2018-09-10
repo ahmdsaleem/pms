@@ -79,9 +79,8 @@
                             <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
                             <button type="button" id="save" class="btn btn-rounded btn-primary" >Save User</button>
                         </div>
-                    </div>
-
-                    </form>
+                        </form>
+                        </div>
                     </div>
 
             </div><!--.modal-->
@@ -146,9 +145,10 @@
                                     <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
                                     <button type="button" id="update" class="btn btn-rounded btn-primary" >Save User</button>
                                 </div>
+                            </form>
                         </div>
 
-                        </form>
+
                     </div>
 
                 </div><!--.modal-->
