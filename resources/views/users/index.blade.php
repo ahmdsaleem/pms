@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="{{ asset('css/lib/bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/separate/vendor/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-    <link href="{{ asset('assets/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
-
 @endsection
 
 @section('content')
@@ -74,13 +74,27 @@
                                                type="password">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="">Assign Products</label>
+                                  <div class="form-control-wrapper">
+                                      <select class="form-control multi-select" name="products[]" id="assign-product-select" multiple="multiple">
+                                          @foreach($products as $product)
+                                          <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                          @endforeach
+                                      </select>
+                                  </div>
+                                </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
                             <button type="button" id="save" class="btn btn-rounded btn-primary" >Save User</button>
                         </div>
+
+
                         </form>
+
                         </div>
+
                     </div>
 
             </div><!--.modal-->
@@ -140,6 +154,16 @@
                                                    name="password">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="">Assign Products</label>
+                                        <div class="form-control-wrapper">
+                                            <select class="form-control multi-select" name="products[]" id="edit-product-select" multiple="multiple">
+                                                @foreach($products as $product)
+                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
@@ -175,6 +199,8 @@
         </div>
     </div>
 
+
+
 @endsection
 
 
@@ -189,7 +215,8 @@
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
     <script src="{{ asset('js/lib/html5-form-validation/jquery.validate.min.js') }}"></script>
             <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('js/users/crud.js') }}"></script>
+            <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js') }}"></script>
+            <script src="{{ asset('js/lib/select2/select2.full.min.js') }}"></script>
+            <script src="{{ asset('js/users/crud.js') }}"></script>
 
 @endsection

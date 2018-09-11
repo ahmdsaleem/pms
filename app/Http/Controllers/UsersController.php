@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use App\User;
 use App\Classes\Response;
 use Illuminate\Http\Request;
@@ -12,11 +13,12 @@ class UsersController extends Controller
 
     public function index()
     {
-        return view('users.index');
+        return view('users.index')->with('products',Product::all());
     }
 
     public function store(Request $request)
     {
+
         $response=new Response();
 
         try {
@@ -32,6 +34,8 @@ class UsersController extends Controller
                 'email' => $request->get('email'),
                 'password' => bcrypt($request->get('password')),
             ]);
+
+            $user->products()->attach($request->get('products'));
 
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
         }
@@ -52,10 +56,12 @@ class UsersController extends Controller
 
     public function edit($id)
     {
+
         $response= new Response();
         try {
             $user = User::findOrFail($id);
-            return reponse()->json($user);
+            $user['products'] = $user->products;
+            return response()->json($user);
         }
         catch (\Exception $ex)
         {
@@ -82,6 +88,7 @@ class UsersController extends Controller
                 $user->password = bcrypt($password);
             }
             $user->save();
+            $user->products()->sync($request->get('products'));
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
             }
             catch (\Exception $ex)

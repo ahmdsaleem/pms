@@ -3,3 +3,8 @@
     margin:7px;
 
 }
+
+.select2-container--classic .select2-results__option--highlighted[aria-selected]
+{
+    color: #0A0A0A;
+}

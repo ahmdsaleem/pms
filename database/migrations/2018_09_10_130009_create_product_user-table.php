@@ -6,11 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateProductUserTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('product_user', function (Blueprint $table) {
@@ -23,13 +19,9 @@ class CreateProductUserTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
-        //
+        Schema::dropIfExists('product_user');
     }
 }
