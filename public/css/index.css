@@ -8,3 +8,12 @@
 {
     color: #0A0A0A;
 }
+
+.multiselect-container>li label{
+    font-size: 15px;
+    color: #0A0A0A;
+}
+.multiselect-container>li input[type="checkbox"] {
+    position: static;
+    visibility: visible;
+}

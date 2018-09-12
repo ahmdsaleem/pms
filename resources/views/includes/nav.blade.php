@@ -35,16 +35,18 @@
             </li>
 
         @endif
-        <li class="with-sub">
-	            <span>
-	                <i class="font-icon font-icon-wallet"></i>
-	                <span class="lbl">Customers</span>
-	            </span>
-            <ul>
-                <li><a href="#"><span class="lbl">List</span></a></li>
-                <li><a href="#"><span class="lbl">Add New</span></a></li>
-            </ul>
+
+        <li
+                @if(url()->full()== route('customers'))
+                class="opened"
+                @endif
+        >
+            <a href="{{ route('customers') }}">
+                <i class="font-icon font-icon-wallet"></i>
+                <span class="lbl">Customers</span>
+            </a>
         </li>
+
 
         <li>
             <a href="#">

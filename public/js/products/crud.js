@@ -6,7 +6,7 @@ var ProductController=(function () {
 
     return {
 
-        loadUsersDataTable: function () {
+        loadProductsDataTable: function () {
             table = $('#products-table').DataTable({
                 "processing": true,
                 "serverSide": true,
@@ -199,7 +199,7 @@ var ProductController=(function () {
 
 
         init: function () {
-            this.loadUsersDataTable();
+            this.loadProductsDataTable();
             this.bindEvents();
         }
 
