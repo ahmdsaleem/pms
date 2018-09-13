@@ -2,16 +2,24 @@ var CustomerController=(function () {
     var routes={
         base: "customers/"
     };
-    var table;
 
     return {
 
-        loadCustomersDataTable: function () {
-            table = $('#customers-table').DataTable({
+        loadCustomersDataTable: function (daterange,products) {
+            $('#customers-table').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "searchable": true,
-                "ajax": "api/customers",
+                "ajax":{
+                    url:"api/customers",
+                    type:"GET",
+                    data: {
+                        daterange: daterange,
+                        products:products
+                    }
+
+                    }
+                ,
                 "columns": [
                     {data: 'id', name: 'id', searchable:true},
                     {data: 'name', name: 'name',searchable:true},
@@ -20,35 +28,6 @@ var CustomerController=(function () {
                 ]
             });
         },
-
-        filterData: function()
-        {
-
-
-                var form_data = $('#filter-customers-form').serialize();
-                // table.clear();
-                // table.destroy();
-                var ajaxSetup = GlobalController.functions.ajaxSetup();
-                $.when(ajaxSetup).done(function () {
-                    var filterCustomers = GlobalController.functions.ajaxPromise(form_data, routes.base+"filter", GlobalController.variables.methods.get);
-                    $.when(filterCustomers).done(function (data) {
-
-                        for(var i=0;i<data.length;i++)
-                        {
-                            console.log(data[i].name);
-                        }
-
-
-                        // $('#customers-table').dataTable().fnClearTable();
-                            //  for(var i=0;i<data.length;i++)
-                            // $('#customers-table').dataTable().fnAddData(data[i]);
-                    });
-                    $.when(filterCustomers).fail(function (data) {
-
-                    })
-                });
-        },
-
 
 
         bindEvents: function()
@@ -99,7 +78,10 @@ var CustomerController=(function () {
 
             $('#filter-customers-form-submit').on('click',function () {
                 event.preventDefault();
-               CustomerController.filterData();
+                var daterange = $('#daterange').val();
+                $('#customers-table').DataTable().destroy();
+                CustomerController.loadCustomersDataTable(daterange,"");
+
             });
 
             },

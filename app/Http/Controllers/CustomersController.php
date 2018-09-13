@@ -21,6 +21,8 @@ class CustomersController extends Controller
         $startDate=Carbon::parse($splitDate[0])->toDateTimeString();
         $endDate=Carbon::parse($splitDate[1])->toDateTimeString();
 
+
+
         $customers=Customer::whereIn('product_id',$request->products)->whereBetween('created_at',[$startDate,$endDate])->get();
 
         foreach ($customers as $customer)
@@ -43,7 +45,19 @@ class CustomersController extends Controller
         $length = $request->get('length');
         $search['value']=true;
 
-        $customers = Customer::skip($start)->take($length)->get();
+
+        if(!empty($request->daterange)) {
+            $splitDate = explode('-', $request->daterange, 2);
+            $startDate = Carbon::parse($splitDate[0])->toDateTimeString();
+            $endDate = Carbon::parse($splitDate[1])->toDateTimeString();
+        }
+        else
+        {
+            $startDate=Carbon::now()->subDays(30)->toDateTimeString();
+            $endDate=Carbon::now()->toDateTimeString();
+        }
+
+        $customers = Customer::whereBetween('created_at',[$startDate,$endDate])->skip($start)->take($length)->get();
         $total_customers= Customer::all()->count();
 
         $parameters=array();
