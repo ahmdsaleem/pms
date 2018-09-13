@@ -22,8 +22,16 @@ class CustomersController extends Controller
         $endDate=Carbon::parse($splitDate[1])->toDateTimeString();
 
         $customers=Customer::whereIn('product_id',$request->products)->whereBetween('created_at',[$startDate,$endDate])->get();
-        dd($customers->pluck('name'));
 
+        foreach ($customers as $customer)
+        {
+            $customer['product_assigned']=$customer->product->name;
+            $customer['action']='<a onclick=""> <l title="Edit User Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
+                '<a onclick=""> <l title="Delete User" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
+
+        }
+
+        return response()->json($customers);
 
     }
 

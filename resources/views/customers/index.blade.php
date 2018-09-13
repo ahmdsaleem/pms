@@ -23,11 +23,11 @@
 
     <div class="row">
             <h4>Apply Filters</h4>
-        <form id="products-filter-form" action="{{ route('customer.filter') }}" method="GET">
+        <form id="filter-customers-form">
             <div class="form-group">
                 <div class="col-md-4">
                 <div class='input-group date'>
-                    <input id="daterange" name="daterange" type="text" value="01/01/2015 1:30 PM - 01/01/2018 2:00 PM" class="form-control">
+                    <input id="daterange" name="daterange" type="text"  class="form-control">
                     <span class="input-group-addon">
                         <i class="font-icon font-icon-calend"></i>
                     </span>
@@ -46,7 +46,7 @@
             </div>
             <div class="form-group">
                 <div class="col-md-1">
-                <button type="submit" class="btn btn-success"><i class="font-icon font-icon-refresh"></i> Sync</button>
+                <button id="filter-customers-form-submit" class="btn btn-success"><i class="font-icon font-icon-refresh"></i> Sync</button>
                 </div>
 
             </div>
