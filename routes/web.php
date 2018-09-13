@@ -58,7 +58,9 @@ Route::group(['middleware' =>'auth'],function () {
 
     Route::delete('/customers/{id}','CustomersController@destroy')->name('customer.delete');
 
-    });
+    Route::get('/customers/filter','CustomersController@filter')->name('customer.filter');
+
+});
 
 
 

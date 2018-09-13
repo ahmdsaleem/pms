@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
@@ -11,6 +12,19 @@ class CustomersController extends Controller
     public function index()
     {
         return view('customers.index')->with('products',Product::all());
+    }
+
+    public function filter(Request $request)
+    {
+
+       $splitDate= explode('-', $request->daterange,2);
+        $startDate=Carbon::parse($splitDate[0])->toDateTimeString();
+        $endDate=Carbon::parse($splitDate[1])->toDateTimeString();
+
+        $customers=Customer::whereIn('product_id',$request->products)->whereBetween('created_at',[$startDate,$endDate])->get();
+        dd($customers->pluck('name'));
+
+
     }
 
 
