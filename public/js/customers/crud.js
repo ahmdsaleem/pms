@@ -5,7 +5,9 @@ var CustomerController=(function () {
 
     return {
 
-        loadCustomersDataTable: function (daterange,products) {
+        loadCustomersDataTable: function (products) {
+            var daterange = $('#daterange').val();
+            var products = $('#products-filter').val();
             $('#customers-table').DataTable({
                 "processing": true,
                 "serverSide": true,
@@ -14,7 +16,7 @@ var CustomerController=(function () {
                     url:"api/customers",
                     type:"GET",
                     data: {
-                        daterange: daterange,
+                        daterange:daterange,
                         products:products
                     }
 
@@ -78,9 +80,8 @@ var CustomerController=(function () {
 
             $('#filter-customers-form-submit').on('click',function () {
                 event.preventDefault();
-                var daterange = $('#daterange').val();
                 $('#customers-table').DataTable().destroy();
-                CustomerController.loadCustomersDataTable(daterange,"");
+                CustomerController.loadCustomersDataTable();
 
             });
 

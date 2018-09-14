@@ -46,6 +46,15 @@ class CustomersController extends Controller
         $search['value']=true;
 
 
+        if(!empty($request->get('products')))
+        {
+            $products=$request->get('products');
+        }
+        else
+        {
+            $products=Product::all()->pluck('id');
+        }
+
         if(!empty($request->daterange)) {
             $splitDate = explode('-', $request->daterange, 2);
             $startDate = Carbon::parse($splitDate[0])->toDateTimeString();
@@ -57,8 +66,10 @@ class CustomersController extends Controller
             $endDate=Carbon::now()->toDateTimeString();
         }
 
-        $customers = Customer::whereBetween('created_at',[$startDate,$endDate])->skip($start)->take($length)->get();
-        $total_customers= Customer::all()->count();
+
+
+        $customers = Customer::whereIn('product_id',$products)->whereBetween('created_at',[$startDate,$endDate])->get();
+        $total_customers= count($customers);
 
         $parameters=array();
         $parameters['draw']=$draw;
