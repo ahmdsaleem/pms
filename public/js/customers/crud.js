@@ -59,10 +59,9 @@ var CustomerController=(function () {
                 "showISOWeekNumbers": true
             });
 
-            $('#daterange').on('show.daterangepicker', function(ev, picker) {
-                /*$('.daterangepicker select').selectpicker({
-                    size: 10
-                });*/
+            $('#daterange').on('apply.daterangepicker', function(ev, picker) {
+                $('#customers-table').DataTable().destroy();
+                CustomerController.loadCustomersDataTable();
             });
 
             $('#products-filter').multiselect({

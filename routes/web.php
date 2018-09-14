@@ -58,8 +58,6 @@ Route::group(['middleware' =>'auth'],function () {
 
     Route::delete('/customers/{id}','CustomersController@destroy')->name('customer.delete');
 
-    Route::get('/customers/filter','CustomersController@filter')->name('customer.filter');
-
 });
 
 
@@ -71,9 +69,5 @@ Route::get('/test',function ()
 
     return view('test');
 
-});
-
-Route::get('/getrequest',function (){
-    dd(request()->all());
 });
 
