@@ -6,6 +6,7 @@ use App\Customer;
 use App\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomersController extends Controller
 {
@@ -21,15 +22,24 @@ class CustomersController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search['value']=true;
+        $filter_products=array();
 
-
-        if(!empty($request->get('products')))
+        if(!empty($request->get('products')) )
         {
-            $products=$request->get('products');
+            $products = $request->get('products');
+            $all_products=json_decode(Auth::user()->products->pluck('id'));
+            for ($i=0;$i<count($products);$i++)
+            {
+                if(in_array($products[$i],$all_products))
+                {
+                 array_push($filter_products,$products[$i]);
+                }
+            }
+
         }
         else
         {
-            $products=Product::all()->pluck('id');
+            $filter_products=Auth::user()->products->pluck('id');
         }
 
         if(!empty($request->daterange)) {
@@ -43,8 +53,8 @@ class CustomersController extends Controller
             $endDate=Carbon::now()->toDateTimeString();
         }
 
-        $customers = Customer::whereIn('product_id',$products)->whereBetween('created_at',[$startDate,$endDate])->skip($start)->take($length)->get();
-        $total_customers= Customer::whereIn('product_id',$products)->whereBetween('created_at',[$startDate,$endDate])->count();
+        $customers = Customer::whereIn('product_id',$filter_products)->whereBetween('created_at',[$startDate,$endDate])->skip($start)->take($length)->get();
+        $total_customers= Customer::whereIn('product_id',$filter_products)->whereBetween('created_at',[$startDate,$endDate])->count();
         $parameters=array();
         $parameters['draw']=$draw;
         $parameters['recordsTotal']=$total_customers;

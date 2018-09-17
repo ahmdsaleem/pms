@@ -24,7 +24,7 @@
 
 //Product Module Routes
 
-    Route::group(['middleware' =>'auth'],function () {
+    Route::group(['middleware' =>['auth','admin']],function () {
 
         Route::get('/', 'HomeController@index')->name('dashboard');
 

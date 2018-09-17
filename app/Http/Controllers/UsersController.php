@@ -125,7 +125,7 @@ class UsersController extends Controller
         $length = $request->get('length');
         $search['value']=true;
 
-        $users = User::skip($start)->take($length)->get();
+        $users = User::where('role_id','2')->skip($start)->take($length)->get();
         $total_users= User::all()->count();
 
         $parameters=array();

@@ -5,7 +5,7 @@ var CustomerController=(function () {
 
     return {
 
-        loadCustomersDataTable: function (products) {
+        loadCustomersDataTable: function () {
             var daterange = $('#daterange').val();
             var products = $('#products-filter').val();
             $('#customers-table').DataTable({
@@ -41,7 +41,7 @@ var CustomerController=(function () {
             cb(moment().subtract(29, 'days'), moment());
             $('#daterange').daterangepicker({
                 "timePicker": true,
-                startDate: moment().subtract(30, 'day'),
+                startDate: moment().subtract(7, 'day'),
                 endDate: moment(),
                 ranges: {
                     'Today': [moment(), moment()],

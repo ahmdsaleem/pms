@@ -32,8 +32,10 @@ class UsersTableSeeder extends Seeder
         ]);
 
 
+
         factory(App\User::class,5)->create();
         factory(App\Product::class,7)->create();
+        $user->products()->attach([1,2,3,4,5,6,7]);
         factory(App\Customer::class,50)->create();
 
     }

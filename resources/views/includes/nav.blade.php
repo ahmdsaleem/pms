@@ -10,7 +10,7 @@
                 <span class="lbl">Home</span>
             </a>
         </li>
-
+        @if(auth()->user()->role->id==1)
         <li
                 @if(url()->full()== route('products'))
                 class="opened"
@@ -21,7 +21,7 @@
                 <span class="lbl">Products</span>
             </a>
         </li>
-
+        @endif
         @if(auth()->user()->role->id==1)
             <li
                     @if(url()->full()== route('users'))
@@ -47,14 +47,14 @@
             </a>
         </li>
 
-
+        @if(auth()->user()->role->id==1)
         <li>
             <a href="#">
                 <i class="glyphicon glyphicon-cog"></i>
                 <span class="lbl">Settings</span>
             </a>
         </li>
-
+        @endif
 
     </ul>
 </nav><!--.side-menu-->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classes\Response;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -108,8 +109,8 @@ class ProductsController extends Controller
         $length = $request->get('length');
         $search['value']=true;
 
-        $products = Product::skip($start)->take($length)->get();
-        $total_products= Product::all()->count();
+        $products = Auth::user()->products()->skip($start)->take($length)->get();
+        $total_products= Auth::user()->products()->count();
 
         $parameters=array();
         $parameters['draw']=$draw;

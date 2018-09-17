@@ -37,7 +37,7 @@
             <div class="form-group">
                 <div class="offset-md-2 col-md-4">
                     <select id="products-filter" name="products[]" multiple="multiple">
-                        @foreach($products as $product)
+                        @foreach(auth()->user()->products as $product)
                             <option value="{{ $product->id }}">{{ $product->name }}</option>
                         @endforeach
                     </select>
