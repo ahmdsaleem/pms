@@ -135,6 +135,7 @@ class UsersController extends Controller
 
         foreach ($users as $user)
         {
+            $user['project_assigned']=$user->projects->pluck('name');
             $user['action']='<a onclick="UserController.editUser('.$user->id.')"> <l title="Edit User Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
                 '<a onclick="UserController.deleteUser('.$user->id.')"> <l title="Delete User" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
         }

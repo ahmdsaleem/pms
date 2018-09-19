@@ -16,6 +16,7 @@ var UserController=(function () {
                     {data: 'id', name: 'id', searchable:true},
                     {data: 'name', name: 'name',searchable:true},
                     {data: 'email', name: 'email',searchable:true},
+                    {data: 'project_assigned', name: 'project_assigned',searchable:true},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });
