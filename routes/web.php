@@ -8,6 +8,7 @@
 
     Route::group(['middleware' =>['auth','admin']],function (){
 
+
         Route::get('/api/users', 'UsersController@getUsers')->name('api.users');
 
         Route::get('/users','UsersController@index')->name('users');
@@ -60,7 +61,15 @@ Route::group(['middleware' =>'auth'],function () {
 
 });
 
+// Integrations
 
+    Route::group(['middleware' =>['auth','admin']],function (){
+
+        Route::get('/integrations','IntegrationsController@index')->name('integrations');
+
+        Route::post('/integrations','IntegrationsController@store')->name('integration.store');
+
+    });
 
 
 

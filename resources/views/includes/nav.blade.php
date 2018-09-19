@@ -48,13 +48,32 @@
         </li>
 
         @if(auth()->user()->role->id==1)
-        <li>
+            <li
+                    @if(url()->full()== route('integrations'))
+                    class="opened"
+                    @endif
+            >
+                <a href="{{ route('integrations') }}">
+                    <i class="font-icon font-icon-refresh"></i>
+                    <span class="lbl">JVZOO Integration</span>
+                </a>
+            </li>
+        @endif
+
+
+        @if(auth()->user()->role->id==1)
+        <li
+
+        >
             <a href="#">
                 <i class="glyphicon glyphicon-cog"></i>
                 <span class="lbl">Settings</span>
             </a>
         </li>
         @endif
+
+
+
 
     </ul>
 </nav><!--.side-menu-->
