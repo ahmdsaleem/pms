@@ -17,7 +17,7 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'user.205' => "Exception occured!",
     'user.200' => "Operation Successfully Completed",
-    'product.200'=> "Operation Successfully Completed",
-    'product.205' => "Exception occured!",
+    'project.200'=> "Operation Successfully Completed",
+    'project.205' => "Exception occured!",
 
 ];

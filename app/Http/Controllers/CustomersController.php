@@ -21,23 +21,23 @@ class CustomersController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search['value']=true;
-        $filter_products=array();
+        $filter_projects=array();
 
-        if(!empty($request->get('products')) )
+        if(!empty($request->get('projects')) )
         {
-            $products = $request->get('products');
-            $all_products=json_decode(Auth::user()->products->pluck('id'));
-            for ($i=0;$i<count($products);$i++)
+            $projects = $request->get('projects');
+            $all_projects=json_decode(Auth::user()->projects->pluck('id'));
+            for ($i=0;$i<count($projects);$i++)
             {
-                if(in_array($products[$i],$all_products))
+                if(in_array($projects[$i],$all_projects))
                 {
-                 array_push($filter_products,$products[$i]);
+                 array_push($filter_projects,$projects[$i]);
                 }
             }
         }
         else
         {
-            $filter_products=Auth::user()->products->pluck('id');
+            $filter_projects=Auth::user()->projects->pluck('id');
         }
 
         if(!empty($request->daterange)) {
@@ -51,15 +51,15 @@ class CustomersController extends Controller
             $endDate=Carbon::now()->toDateTimeString();
         }
 
-        $customers = Customer::whereIn('product_id',$filter_products)->whereBetween('created_at',[$startDate,$endDate])->skip($start)->take($length)->get();
-        $total_customers= Customer::whereIn('product_id',$filter_products)->whereBetween('created_at',[$startDate,$endDate])->count();
+        $customers = Customer::whereIn('project_id',$filter_projects)->whereBetween('created_at',[$startDate,$endDate])->skip($start)->take($length)->get();
+        $total_customers= Customer::whereIn('project_id',$filter_projects)->whereBetween('created_at',[$startDate,$endDate])->count();
         $parameters=array();
         $parameters['draw']=$draw;
         $parameters['recordsTotal']=$total_customers;
         $parameters['recordsFiltered']=$total_customers;
         foreach ($customers as $customer)
         {
-            $customer['product_assigned']=$customer->product->name;
+            $customer['project_assigned']=$customer->project->name;
             $customer['action']='<a onclick=""> <l title="Edit User Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
                 '<a onclick=""> <l title="Delete User" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
 

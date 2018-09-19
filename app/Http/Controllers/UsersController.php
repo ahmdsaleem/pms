@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
+use App\Project;
 use App\User;
 use App\Classes\Response;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        return view('users.index')->with('products',Product::all());
+        return view('users.index')->with('projects',Project::all());
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class UsersController extends Controller
                 'password' => bcrypt($request->get('password')),
             ]);
 
-            $user->products()->attach($request->get('products'));
+            $user->projects()->attach($request->get('projects'));
 
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
         }
@@ -60,7 +60,7 @@ class UsersController extends Controller
         $response= new Response();
         try {
             $user = User::findOrFail($id);
-            $user['products'] = $user->products;
+            $user['projects'] = $user->projects;
             return response()->json($user);
         }
         catch (\Exception $ex)
@@ -88,7 +88,7 @@ class UsersController extends Controller
                 $user->password = bcrypt($password);
             }
             $user->save();
-            $user->products()->sync($request->get('products'));
+            $user->projects()->sync($request->get('projects'));
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
             }
             catch (\Exception $ex)

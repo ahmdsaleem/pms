@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
-use App\Product;
+use App\Project;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         return view('index')->with('user_count',User::all()->count())
-                                  ->with('product_count',Product::all()->count())
+                                  ->with('project_count',Project::all()->count())
                                   ->with('customer_count',Customer::all()->count());
     }
 }

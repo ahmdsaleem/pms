@@ -23,9 +23,9 @@ class User extends Authenticatable
         return $this->belongsTo('App\Role');
     }
 
-    public function products()
+    public function projects()
     {
-        return $this->belongsToMany('App\Product');
+        return $this->belongsToMany('App\Project');
     }
 
 

@@ -86,13 +86,13 @@ var UserController=(function () {
             $.when(ajaxSetup).done(function () {
                 var editUser= GlobalController.functions.ajaxPromise("",routes.base + id,GlobalController.variables.methods.put);
                 $.when(editUser).done(function (data) {
-                    $('#edit-product-select').val(null).trigger('change');
+                    $('#edit-project-select').val(null).trigger('change');
                     var selectID= new Array();
-                    for(var i=0;i<data.products.length;i++)
+                    for(var i=0;i<data.projects.length;i++)
                     {
-                        selectID[i]=data.products[i].id;
+                        selectID[i]=data.projects[i].id;
                     }
-                    $('#edit-product-select').val(selectID).trigger('change');
+                    $('#edit-project-select').val(selectID).trigger('change');
                     $('#id').val(data.id);
                     $('#username').val(data.name);
                     $('#email').val(data.email);
@@ -214,10 +214,10 @@ var UserController=(function () {
                 event.preventDefault();
                 UserController.updateUser();
             });
-            $('#assign-product-select').select2({
+            $('#assign-project-select').select2({
                 theme: "classic"
             });
-            $('#edit-product-select').select2({
+            $('#edit-project-select').select2({
                 theme: "classic"
             });
 

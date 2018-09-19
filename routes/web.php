@@ -24,22 +24,22 @@
     });
 
 
-//Product Module Routes
+//Project Module Routes
 
     Route::group(['middleware' =>['auth','admin']],function () {
 
 
-        Route::get('/products','ProductsController@index')->name('products');
+        Route::get('/projects','ProjectsController@index')->name('projects');
 
-        Route::get('/api/products', 'ProductsController@getProducts')->name('api.products');
+        Route::get('/api/projects', 'ProjectsController@getProjects')->name('api.projects');
 
-        Route::post('/products', 'ProductsController@store')->name('product.store');
+        Route::post('/projects', 'ProjectsController@store')->name('project.store');
 
-        Route::PUT('/products/{id}','ProductsController@edit')->name('product.edit');
+        Route::PUT('/projects/{id}','ProjectsController@edit')->name('project.edit');
 
-        Route::patch('/products/{id}','ProductsController@update')->name('product.update');
+        Route::patch('/projects/{id}','ProjectsController@update')->name('project.update');
 
-        Route::delete('/products/{id}','ProductsController@destroy')->name('product.delete');
+        Route::delete('/projects/{id}','ProjectsController@destroy')->name('project.delete');
 
     });
 

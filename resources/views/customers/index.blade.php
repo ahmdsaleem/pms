@@ -36,9 +36,9 @@
             </div>
             <div class="form-group">
                 <div class="offset-md-2 col-md-4">
-                    <select id="products-filter" name="products[]" multiple="multiple">
-                        @foreach(auth()->user()->products as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                    <select id="projects-filter" name="projects[]" multiple="multiple">
+                        @foreach(auth()->user()->projects as $project)
+                            <option value="{{ $project->id }}">{{ $project->name }}</option>
                         @endforeach
                     </select>
 
@@ -64,7 +64,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Products Assigned</th>
+                        <th>Projects Assigned</th>
                         <th>Operations</th>
                     </tr>
                     </thead>

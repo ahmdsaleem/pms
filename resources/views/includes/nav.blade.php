@@ -12,13 +12,13 @@
         </li>
         @if(auth()->user()->role->id==1)
         <li
-                @if(url()->full()== route('products'))
+                @if(url()->full()== route('projects'))
                 class="opened"
                 @endif
         >
-            <a href="{{ route('products') }}">
+            <a href="{{ route('projects') }}">
                 <i class="glyphicon glyphicon-briefcase"></i>
-                <span class="lbl">Products</span>
+                <span class="lbl">Projects</span>
             </a>
         </li>
         @endif

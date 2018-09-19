@@ -31,7 +31,7 @@
                 <div class="widget-simple-sm-icon">
                     <i class="font-icon font-icon-weather-umbrella"></i>
                 </div>
-                <div class="widget-simple-sm-fill-caption">{{ $product_count }} Products</div>
+                <div class="widget-simple-sm-fill-caption">{{ $project_count }} Projects</div>
             </section>
         </div>
 

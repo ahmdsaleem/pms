@@ -1,17 +1,17 @@
-var ProductController=(function () {
+var ProjectController=(function () {
     var routes={
-        base: "products/"
+        base: "projects/"
     };
     var table;
 
     return {
 
-        loadProductsDataTable: function () {
-            table = $('#products-table').DataTable({
+        loadProjectsDataTable: function () {
+            table = $('#projects-table').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "searchable": true,
-                "ajax": "api/products",
+                "ajax": "api/projects",
                 "columns": [
                     {data: 'id', name: 'id', searchable:true},
                     {data: 'name', name: 'name',searchable:true},
@@ -21,9 +21,9 @@ var ProductController=(function () {
             });
         },
 
-        createProduct: function()
+        createProject: function()
         {
-            $('#create-product-form').validate({
+            $('#create-project-form').validate({
 
                 rules: {
                     name: {
@@ -33,18 +33,18 @@ var ProductController=(function () {
                 },
                 messages: {
                     name: {
-                        required: "Please type Product Name",
+                        required: "Please type Project Name",
                     }
                 }
             });
-            if($('#create-product-form').valid()) {
-                var form_data = $('#create-product-form').serialize();
+            if($('#create-project-form').valid()) {
+                var form_data = $('#create-project-form').serialize();
                 var ajaxSetup = GlobalController.functions.ajaxSetup();
                 $.when(ajaxSetup).done(function () {
-                    var createProduct = GlobalController.functions.ajaxPromise(form_data, routes.base, GlobalController.variables.methods.post);
-                    $.when(createProduct).done(function (data) {
-                        $('#create-product-modal').modal('hide');
-                        $('#products-table').DataTable().ajax.reload();
+                    var createProject = GlobalController.functions.ajaxPromise(form_data, routes.base, GlobalController.variables.methods.post);
+                    $.when(createProject).done(function (data) {
+                        $('#create-project-modal').modal('hide');
+                        $('#projects-table').DataTable().ajax.reload();
                         swal({
                             title: 'Success!',
                             text: data.message,
@@ -52,7 +52,7 @@ var ProductController=(function () {
                             timer: '4000'
                         })
                     });
-                    $.when(createProduct).fail(function (data) {
+                    $.when(createProject).fail(function (data) {
                         swal({
                             title: 'Error!'.data.code,
                             text: data.message,
@@ -65,16 +65,16 @@ var ProductController=(function () {
         },
 
 
-        editProduct: function(id)
+        editProject: function(id)
         {
             var ajaxSetup = GlobalController.functions.ajaxSetup();
             $.when(ajaxSetup).done(function () {
-                var editProduct= GlobalController.functions.ajaxPromise("",routes.base + id,GlobalController.variables.methods.put);
-                $.when(editProduct).done(function (data) {
-                    $('#update-product-modal').modal('show');
-                    $('#update-product-id').val(data.id);
-                    $('#update-product-name').val(data.name);
-                    $('#update-product-description').val(data.description);
+                var editProject= GlobalController.functions.ajaxPromise("",routes.base + id,GlobalController.variables.methods.put);
+                $.when(editProject).done(function (data) {
+                    $('#update-project-modal').modal('show');
+                    $('#update-project-id').val(data.id);
+                    $('#update-project-name').val(data.name);
+                    $('#update-project-description').val(data.description);
                 });
                 $.when(editUser).fail(function (data) {
                     swal({
@@ -89,9 +89,9 @@ var ProductController=(function () {
 
 
 
-        updateProduct: function()
+        updateProject: function()
         {
-            $('#update-product-form').validate({
+            $('#update-project-form').validate({
 
                 rules: {
                     username: {
@@ -118,15 +118,15 @@ var ProductController=(function () {
 
             });
 
-            if($('#update-product-form').valid()) {
-                var form_data = $('#update-product-form').serialize();
-                var id = $('#update-product-id').val();
+            if($('#update-project-form').valid()) {
+                var form_data = $('#update-project-form').serialize();
+                var id = $('#update-project-id').val();
                 var ajaxSetup = GlobalController.functions.ajaxSetup();
                 $.when(ajaxSetup).done(function () {
-                    var updateProduct = GlobalController.functions.ajaxPromise(form_data, routes.base + id, GlobalController.variables.methods.patch);
-                    $.when(updateProduct).done(function (data) {
-                        $('#update-product-modal').modal('hide');
-                        $('#products-table').DataTable().ajax.reload();
+                    var updateProject = GlobalController.functions.ajaxPromise(form_data, routes.base + id, GlobalController.variables.methods.patch);
+                    $.when(updateProject).done(function (data) {
+                        $('#update-project-modal').modal('hide');
+                        $('#projects-table').DataTable().ajax.reload();
                         swal({
                             title: 'Success!',
                             text: data.message,
@@ -134,7 +134,7 @@ var ProductController=(function () {
                             timer: '4000'
                         })
                     });
-                    $.when(updateProduct).fail(function (data) {
+                    $.when(updateProject).fail(function (data) {
                         swal({
                             title: 'Error'.data.code,
                             text: data.message,
@@ -147,7 +147,7 @@ var ProductController=(function () {
         },
 
 
-        deleteProduct: function(id)
+        deleteProject: function(id)
         {
             var ajaxSetup = GlobalController.functions.ajaxSetup();
             $.when(ajaxSetup).done(function () {
@@ -158,8 +158,8 @@ var ProductController=(function () {
                     showCancelButton: true,
                     confirmButtonText: 'Yes, delete it!'
                 }).then(function () {
-                    var deleteProduct=GlobalController.functions.ajaxPromise("",routes.base+id,GlobalController.variables.methods.delete);
-                    $.when(deleteProduct).done(function (data) {
+                    var deleteProject=GlobalController.functions.ajaxPromise("",routes.base+id,GlobalController.variables.methods.delete);
+                    $.when(deleteProject).done(function (data) {
                         table.ajax.reload();
                         swal({
                             title: 'Success!',
@@ -168,7 +168,7 @@ var ProductController=(function () {
                             timer: '1500'
                         })
                     });
-                    $.when(deleteProduct).fail(function (data) {
+                    $.when(deleteProject).fail(function (data) {
                         swal({
                             title: 'Oops...',
                             text: data.message,
@@ -185,21 +185,21 @@ var ProductController=(function () {
 
         bindEvents: function()
         {
-            $('#product-save').on('click',function(){
+            $('#project-save').on('click',function(){
                 event.preventDefault();
-                ProductController.createProduct();
+                ProjectController.createProject();
             });
 
-            $('#update-product').on('click',function(){
+            $('#update-project').on('click',function(){
                 event.preventDefault();
-                ProductController.updateProduct();
+                ProjectController.updateProject();
             });
 
         },
 
 
         init: function () {
-            this.loadProductsDataTable();
+            this.loadProjectsDataTable();
             this.bindEvents();
         }
 
@@ -208,5 +208,5 @@ var ProductController=(function () {
 })();
 
 $(document).ready( function () {
-    ProductController.init();
+    ProjectController.init();
 });

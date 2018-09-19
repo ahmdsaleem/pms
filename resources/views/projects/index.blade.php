@@ -24,12 +24,12 @@
         <button type="button"
                 class="btn btn-inline btn-primary"
                 data-toggle="modal"
-                data-target="#create-product-modal">
-            Create New Product
+                data-target="#create-project-modal">
+            Create New Project
         </button>
 
         <div class="modal fade"
-             id="create-product-modal"
+             id="create-project-modal"
              tabindex="-1"
              role="dialog"
              aria-labelledby="myModalLabel"
@@ -40,7 +40,32 @@
                         <button type="button" class="modal-close" data-dismiss="modal" aria-label="Close">
                             <i class="font-icon-close-2"></i>
                         </button>
-                        <h4 class="modal-title" id="myModalLabel">Create New Product</h4>
+                        <h4 class="modal-title" id="myModalLabel">Create New Project</h4>
+                        <form id="create-project-form" name="create-project-form">
+                            {{ csrf_field() }}
+                            <div class="modal-body">
+                                <span id="form_output"></span>
+                                <div class="form-group">
+                                    <label class="form-label" for="project-name">Project Name</label>
+                                    <div class="form-control-wrapper">
+                                        <input id="project-name"
+                                               class="form-control"
+                                               name="name"
+                                               type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="project-description">Description</label>
+                                    <div class="form-control-wrapper">
+                                        <textarea class="form-control" name="description" id="project-description" rows="8"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" id="project-save" class="btn btn-rounded btn-primary" >Save Project</button>
+                            </div>
+                        </form>
                     </div>
 
                 </div>
@@ -51,7 +76,7 @@
 
 
         <div class="modal fade"
-             id="update-product-modal"
+             id="update-project-modal"
              tabindex="-1"
              role="dialog"
              aria-labelledby="myModalLabel"
@@ -63,13 +88,13 @@
                             <i class="font-icon-close-2"></i>
                         </button>
                         <h4 class="modal-title" id="myModalLabel">Edit User</h4>
-                        <form id="update-product-form">
+                        <form id="update-project-form">
                             {{ csrf_field() }}
                             <div class="modal-body">
                                 <span id="form_output"></span>
                                 <div class="form-group">
                                     <div class="form-control-wrapper">
-                                        <input id="update-product-id"
+                                        <input id="update-project-id"
                                                class="form-control"
                                                name="id"
                                                type="text"
@@ -78,18 +103,18 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="form-label" for="update-product-name">Product Name</label>
+                                    <label class="form-label" for="update-project-name">Project Name</label>
                                     <div class="form-control-wrapper">
-                                        <input id="update-product-name"
+                                        <input id="update-project-name"
                                                class="form-control"
                                                name="name"
                                                type="text">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="update-product-description">Description</label>
+                                    <label class="form-label" for="update-project-description">Description</label>
                                     <div class="form-control-wrapper">
-                                        <textarea class="form-control" name="description" id="update-product-description" rows="8"></textarea>
+                                        <textarea class="form-control" name="description" id="update-project-description" rows="8"></textarea>
                                     </div>
                                 </div>
 
@@ -97,7 +122,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" id="update-product" class="btn btn-rounded btn-primary" >Save Product</button>
+                                <button type="button" id="update-project" class="btn btn-rounded btn-primary" >Save Project</button>
                             </div>
                         </form>
                     </div>
@@ -115,7 +140,7 @@
 
     <div class="box-typical-body offset-md-1 col-md-8">
         <div class="table-responsive">
-            <table class="table table-hover" id="products-table">
+            <table class="table table-hover" id="projects-table">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -145,5 +170,5 @@
     <script src="{{ asset('js/lib/html5-form-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('js/products/crud.js') }}"></script>
+    <script src="{{ asset('js/projects/crud.js') }}"></script>
 @endsection

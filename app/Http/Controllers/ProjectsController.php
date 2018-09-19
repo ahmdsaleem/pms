@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Response;
-use App\Product;
+use App\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProductsController extends Controller
+class ProjectsController extends Controller
 {
-    const MODULE = 'product';
+    const MODULE = 'project';
 
     public function index()
     {
-        return view('products.index');
+        return view('projects.index');
     }
 
 
@@ -27,7 +27,7 @@ class ProductsController extends Controller
                 'name'=> 'required',
             ]);
 
-            $product = Product::create([
+            $project = Project::create([
                 'name' => $request->get('name'),
                 'description' => $request->get('description'),
             ]);
@@ -46,8 +46,8 @@ class ProductsController extends Controller
     {
         $response= new Response();
         try {
-            $product = Product::findOrFail($id);
-            return response()->json($product);
+            $project = Project::findOrFail($id);
+            return response()->json($project);
         }
         catch (\Exception $ex)
         {
@@ -66,10 +66,10 @@ class ProductsController extends Controller
                 'name'=> 'required'
             ]);
 
-            $product = Product::findOrFail($id);
-            $product->name = $request->get('name');
-            $product->description = $request->get('description');
-            $product->save();
+            $project = Project::findOrFail($id);
+            $project->name = $request->get('name');
+            $project->description = $request->get('description');
+            $project->save();
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
         }
         catch (\Exception $ex)
@@ -86,8 +86,8 @@ class ProductsController extends Controller
     {
         $response=new Response();
         try {
-            $product = Product::findOrFail($id);
-            Product::destroy($id);
+            $project = Project::findOrFail($id);
+            Project::destroy($id);
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
         }
         catch (\Exception $ex)
@@ -101,7 +101,7 @@ class ProductsController extends Controller
 
 
 
-    public function getProducts(Request $request)
+    public function getProjects(Request $request)
     {
 
         $draw = $request->get('draw');
@@ -109,21 +109,21 @@ class ProductsController extends Controller
         $length = $request->get('length');
         $search['value']=true;
 
-        $products = Product::skip($start)->take($length)->get();
-        $total_products = Product::all()->count();
+        $projects = Project::skip($start)->take($length)->get();
+        $total_projects = Project::all()->count();
 
         $parameters=array();
         $parameters['draw']=$draw;
-        $parameters['recordsTotal']=$total_products;
-        $parameters['recordsFiltered']=$total_products;
+        $parameters['recordsTotal']=$total_projects;
+        $parameters['recordsFiltered']=$total_projects;
 
-        foreach ($products as $product)
+        foreach ($projects as $project)
         {
-            $product['action']='<a onclick="ProductController.editProduct('.$product->id.')"> <l title="Edit Product Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
-                '<a onclick="ProductController.deleteProduct('.$product->id.')"> <l title="Delete Product" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
+            $project['action']='<a onclick="ProjectController.editProject('.$project->id.')"> <l title="Edit Project Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
+                '<a onclick="ProjectController.deleteProject('.$project->id.')"> <l title="Delete Project" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
         }
 
-        $parameters['data']=$products;
+        $parameters['data']=$projects;
         $parameters['input']=array();
         return $parameters;
 

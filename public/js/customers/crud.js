@@ -7,7 +7,7 @@ var CustomerController=(function () {
 
         loadCustomersDataTable: function () {
             var daterange = $('#daterange').val();
-            var products = $('#products-filter').val();
+            var projects = $('#projects-filter').val();
             $('#customers-table').DataTable({
                 "processing": true,
                 "serverSide": true,
@@ -17,7 +17,7 @@ var CustomerController=(function () {
                     type:"GET",
                     data: {
                         daterange:daterange,
-                        products:products
+                        projects:projects
                     }
 
                     }
@@ -25,7 +25,7 @@ var CustomerController=(function () {
                 "columns": [
                     {data: 'id', name: 'id', searchable:true},
                     {data: 'name', name: 'name',searchable:true},
-                    {data: 'product_assigned', name: 'product_assigned',searchable:true},
+                    {data: 'project_assigned', name: 'project_assigned',searchable:true},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });
@@ -64,18 +64,18 @@ var CustomerController=(function () {
                 CustomerController.loadCustomersDataTable();
             });
 
-            $('#products-filter').multiselect({
+            $('#projects-filter').multiselect({
                 enableCaseInsensitiveFiltering: true,
                 enableFiltering: true,
                 numberDisplayed: 3,
-                nonSelectedText: 'Select a Product',
+                nonSelectedText: 'Select a Project',
                 buttonWidth: '400px',
                 includeSelectAllOption: true,
                 maxHeight: 300,
 
             });
 
-            $('#products-filter').multiselect('selectAll',false);
+            $('#projects-filter').multiselect('selectAll',false);
 
             $('#filter-customers-form-submit').on('click',function () {
                 event.preventDefault();

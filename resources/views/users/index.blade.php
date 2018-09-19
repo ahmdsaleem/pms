@@ -75,11 +75,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="">Assign Products</label>
+                                    <label class="form-label" for="">Assign Projects</label>
                                   <div class="form-control-wrapper">
-                                      <select class="form-control multi-select" name="products[]" id="assign-product-select" multiple="multiple">
-                                          @foreach($products as $product)
-                                          <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                      <select class="form-control multi-select" name="projects[]" id="assign-project-select" multiple="multiple">
+                                          @foreach($projects as $project)
+                                          <option value="{{ $project->id }}">{{ $project->name }}</option>
                                           @endforeach
                                       </select>
                                   </div>
@@ -155,11 +155,11 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" for="">Assign Products</label>
+                                        <label class="form-label" for="">Assign Projects</label>
                                         <div class="form-control-wrapper">
-                                            <select class="form-control multi-select" name="products[]" id="edit-product-select" multiple="multiple">
-                                                @foreach($products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                            <select class="form-control mu0lti-select" name="projects[]" id="edit-project-select" multiple="multiple">
+                                                @foreach($projects as $project)
+                                                    <option value="{{ $project->id }}">{{ $project->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
