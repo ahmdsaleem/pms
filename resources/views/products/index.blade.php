@@ -122,7 +122,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" id="update-product" class="btn btn-rounded btn-primary" >Save User</button>
+                                <button type="button" id="update-product" class="btn btn-rounded btn-primary" >Save Product</button>
                             </div>
                         </form>
                     </div>

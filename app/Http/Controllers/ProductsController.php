@@ -109,8 +109,8 @@ class ProductsController extends Controller
         $length = $request->get('length');
         $search['value']=true;
 
-        $products = Auth::user()->products()->skip($start)->take($length)->get();
-        $total_products= Auth::user()->products()->count();
+        $products = Product::skip($start)->take($length)->get();
+        $total_products = Product::all()->count();
 
         $parameters=array();
         $parameters['draw']=$draw;

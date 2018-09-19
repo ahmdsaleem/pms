@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
-use App\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +11,7 @@ class CustomersController extends Controller
 {
     public function index()
     {
-        return view('customers.index')->with('products',Product::all());
+        return view('customers.index');
     }
 
 
@@ -35,7 +34,6 @@ class CustomersController extends Controller
                  array_push($filter_products,$products[$i]);
                 }
             }
-
         }
         else
         {
@@ -49,7 +47,7 @@ class CustomersController extends Controller
         }
         else
         {
-            $startDate=Carbon::now()->subDays(30)->toDateTimeString();
+            $startDate=Carbon::now()->subDays(7)->toDateTimeString();
             $endDate=Carbon::now()->toDateTimeString();
         }
 

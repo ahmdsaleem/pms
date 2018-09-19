@@ -4,6 +4,7 @@
     Auth::routes();
 
 //User Module Routes
+    Route::get('/', 'HomeController@index')->name('dashboard')->middleware('auth');
 
     Route::group(['middleware' =>['auth','admin']],function (){
 
@@ -26,7 +27,6 @@
 
     Route::group(['middleware' =>['auth','admin']],function () {
 
-        Route::get('/', 'HomeController@index')->name('dashboard');
 
         Route::get('/products','ProductsController@index')->name('products');
 
