@@ -105,6 +105,10 @@ class UsersController extends Controller
         $response=new Response();
         try {
             $user = User::findOrFail($id);
+            foreach ($user->projects as $project)
+            {
+                $user->projects()->detach($project->id);
+            }
             User::destroy($id);
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
         }

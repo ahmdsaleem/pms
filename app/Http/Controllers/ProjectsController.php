@@ -32,6 +32,8 @@ class ProjectsController extends Controller
                 'description' => $request->get('description'),
             ]);
 
+            Auth::user()->projects()->attach($project->id);
+
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
         }
         catch(\Exception $e)
@@ -87,6 +89,16 @@ class ProjectsController extends Controller
         $response=new Response();
         try {
             $project = Project::findOrFail($id);
+
+            foreach ($project->users as $user)
+            {
+                $user->projects()->detach($project->id);
+            }
+            foreach ($project->customers as $customer)
+            {
+                $customer->delete();
+            }
+
             Project::destroy($id);
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
         }
