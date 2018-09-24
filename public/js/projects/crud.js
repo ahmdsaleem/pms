@@ -16,6 +16,7 @@ var ProjectController=(function () {
                     {data: 'id', name: 'id', searchable:true},
                     {data: 'name', name: 'name',searchable:true},
                     {data: 'description', name: 'description',searchable:true},
+                    {data: 'platform_assigned', name: 'platform_assigned',searchable:true},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });
@@ -71,12 +72,15 @@ var ProjectController=(function () {
             $.when(ajaxSetup).done(function () {
                 var editProject= GlobalController.functions.ajaxPromise("",routes.base + id,GlobalController.variables.methods.put);
                 $.when(editProject).done(function (data) {
-                    $('#update-project-modal').modal('show');
+                   $('#edit-platform-select').val(null).trigger('change');
+                   $('#edit-platform-select').val(data.platform_id).trigger('change');
                     $('#update-project-id').val(data.id);
                     $('#update-project-name').val(data.name);
                     $('#update-project-description').val(data.description);
+                    $('#update-project-modal').modal('show');
+
                 });
-                $.when(editUser).fail(function (data) {
+                $.when(editProject).fail(function (data) {
                     swal({
                         title: 'Oops...',
                         text: 'Error Occurred',
@@ -194,7 +198,6 @@ var ProjectController=(function () {
                 event.preventDefault();
                 ProjectController.updateProject();
             });
-
         },
 
 

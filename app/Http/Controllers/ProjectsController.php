@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Response;
+use App\Platform;
 use App\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ class ProjectsController extends Controller
 
     public function index()
     {
-        return view('projects.index');
+        return view('projects.index')->with('platforms',Platform::all());
     }
 
 
@@ -30,7 +31,8 @@ class ProjectsController extends Controller
             $project = Project::create([
                 'name' => $request->get('name'),
                 'description' => $request->get('description'),
-            ]);
+                'platform_id' => $request->get('platform')
+                ]);
 
             Auth::user()->projects()->attach($project->id);
 
@@ -71,6 +73,7 @@ class ProjectsController extends Controller
             $project = Project::findOrFail($id);
             $project->name = $request->get('name');
             $project->description = $request->get('description');
+            $project->platform_id=$request->get('platform');
             $project->save();
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
         }
@@ -131,6 +134,13 @@ class ProjectsController extends Controller
 
         foreach ($projects as $project)
         {
+            if(!empty($project->platform->name)) {
+                $project['platform_assigned'] = $project->platform->name;
+            }
+            else
+            {
+                $project['platform_assigned'] = "";
+            }
             $project['action']='<a onclick="ProjectController.editProject('.$project->id.')"> <l title="Edit Project Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
                 '<a onclick="ProjectController.deleteProject('.$project->id.')"> <l title="Delete Project" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
         }

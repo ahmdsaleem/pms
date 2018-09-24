@@ -47,19 +47,6 @@
             </a>
         </li>
 
-        @if(auth()->user()->role->id==1)
-            <li
-                    @if(url()->full()== route('integrations'))
-                    class="opened"
-                    @endif
-            >
-                <a href="{{ route('integrations') }}">
-                    <i class="font-icon font-icon-refresh"></i>
-                    <span class="lbl">JVZOO Integration</span>
-                </a>
-            </li>
-        @endif
-
 
         @if(auth()->user()->role->id==1)
         <li

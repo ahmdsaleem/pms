@@ -77,7 +77,7 @@
                                 <div class="form-group">
                                     <label class="form-label" for="">Assign Projects</label>
                                   <div class="form-control-wrapper">
-                                      <select class="form-control multi-select" name="projects[]" id="assign-project-select" multiple="multiple">
+                                      <select class="form-control" name="projects[]" id="assign-project-select" multiple="multiple">
                                           @foreach($projects as $project)
                                           <option value="{{ $project->id }}">{{ $project->name }}</option>
                                           @endforeach
@@ -157,7 +157,7 @@
                                     <div class="form-group">
                                         <label class="form-label" for="">Assign Projects</label>
                                         <div class="form-control-wrapper">
-                                            <select class="form-control mu0lti-select" name="projects[]" id="edit-project-select" multiple="multiple">
+                                            <select class="form-control" name="projects[]" id="edit-project-select" multiple="multiple">
                                                 @foreach($projects as $project)
                                                     <option value="{{ $project->id }}">{{ $project->name }}</option>
                                                 @endforeach

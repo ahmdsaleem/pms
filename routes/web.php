@@ -61,17 +61,6 @@ Route::group(['middleware' =>'auth'],function () {
 
 });
 
-// Integrations
-
-    Route::group(['middleware' =>['auth','admin']],function (){
-
-        Route::get('/integrations','IntegrationsController@index')->name('integrations');
-
-        Route::post('/integrations','IntegrationsController@store')->name('integration.store');
-
-    });
-
-
 
 Route::get('/test',function ()
 {
