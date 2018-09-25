@@ -10,4 +10,10 @@ class Platform extends Model
     {
         return $this->hasMany('App\Project');
     }
+
+    public function platformFields()
+    {
+        return $this->hasMany('App\PlatformField');
+    }
+
 }

@@ -67,9 +67,36 @@
                                         </div>
                                     </div>
                                 <div class="form-group">
+                                    <label class="form-label" for="platform-api-url">API URL</label>
+                                    <div class="form-control-wrapper">
+                                        <input id="platform-url"
+                                               class="form-control"
+                                               name="url"
+                                               type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="application-key">Application Key</label>
+                                    <div class="form-control-wrapper">
+                                        <input id="application-key"
+                                               class="form-control"
+                                               name="application_key"
+                                               type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="api-password">Password</label>
+                                    <div class="form-control-wrapper">
+                                        <input id="api-password"
+                                               class="form-control"
+                                               name="password"
+                                               type="password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="form-label" for="project-description">Description</label>
                                     <div class="form-control-wrapper">
-                                        <textarea class="form-control" name="description" id="project-description" rows="8"></textarea>
+                                        <textarea class="form-control" name="description" id="project-description" rows="2"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -134,6 +161,7 @@
                                         </select>
                                     </div>
                                 </div>
+
 
                                 <div class="form-group">
                                     <label class="form-label" for="update-project-description">Description</label>

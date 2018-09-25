@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classes\Response;
 use App\Platform;
 use App\Project;
+use App\ProjectIntegration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +21,7 @@ class ProjectsController extends Controller
 
     public function store(Request $request)
     {
+
         $response=new Response();
 
         try {
@@ -31,10 +33,15 @@ class ProjectsController extends Controller
             $project = Project::create([
                 'name' => $request->get('name'),
                 'description' => $request->get('description'),
-                'platform_id' => $request->get('platform')
+                'platform_id' => $request->get('platform'),
                 ]);
 
             Auth::user()->projects()->attach($project->id);
+
+
+
+
+
 
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
         }

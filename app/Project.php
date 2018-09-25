@@ -23,9 +23,9 @@ class Project extends Model
         return $this->belongsTo('App\Platform');
     }
 
-    public function projectIntegration()
+    public function platformFieldValues()
     {
-        return $this->hasOne('App\ProjectIntegration');
+        return $this->hasMany('App\PlatformFieldValue');
     }
 
 }

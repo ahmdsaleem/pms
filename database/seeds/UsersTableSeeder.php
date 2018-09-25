@@ -32,11 +32,58 @@ class UsersTableSeeder extends Seeder
         ]);
 
 
+       $jvzoo= \App\Platform::create([
+            'name' => 'jvzoo'
+        ]);
+
+       $jvzoo_project= \App\Project::create([
+          'name'=>'Jvzoo Project',
+           'platform_id' => $jvzoo->id,
+       ]);
+
+       $jvzoo_field1= \App\PlatformField::create([
+           'platform_id' => $jvzoo->id,
+           'name' => 'API URL',
+           'input_name' => 'api_url'
+       ]);
+
+       $jvzoo_field1_value=\App\PlatformFieldValue::create([
+          'platform_field_id' => $jvzoo_field1->id,
+           'project_id' => $jvzoo_project->id,
+           'value'=> 'https://api.jvzoo.com/v2.0'
+       ]);
+
+
+        $jvzoo_field2= \App\PlatformField::create([
+            'platform_id' => $jvzoo->id,
+            'name' => 'Application Key',
+            'input_name' => 'app_key'
+        ]);
+
+        $jvzoo_field2_value=\App\PlatformFieldValue::create([
+            'platform_field_id' => $jvzoo_field2->id,
+            'project_id' => $jvzoo_project->id,
+            'value'=> 'c4ab184147f311239c6f234895717284467c6744d32ed87ca4103f9aa5375c1a'
+        ]);
+
+
+        $jvzoo_field3= \App\PlatformField::create([
+            'platform_id' => $jvzoo->id,
+            'name' => 'Password',
+            'input_name' => 'password'
+        ]);
+
+        $jvzoo_field3_value=\App\PlatformFieldValue::create([
+            'platform_field_id' => $jvzoo_field3->id,
+            'project_id' => $jvzoo_project->id,
+            'value'=> 'x'
+        ]);
+
 
         factory(App\User::class,5)->create();
         factory(App\Platform::class,5)->create();
         factory(App\Project::class,7)->create();
-        $user->projects()->attach([1,2,3,4,5,6,7]);
+        $user->projects()->attach(\App\Project::all()->pluck('id'));
         factory(App\Customer::class,50)->create();
 
     }
