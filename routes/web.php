@@ -41,6 +41,7 @@
 
         Route::delete('/projects/{id}','ProjectsController@destroy')->name('project.delete');
 
+        Route::get('projects/platform/fields/{id}','ProjectsController@getFields');
     });
 
 // Customer Module Routes
@@ -60,6 +61,8 @@ Route::group(['middleware' =>'auth'],function () {
     Route::delete('/customers/{id}','CustomersController@destroy')->name('customer.delete');
 
 });
+
+
 
 
 Route::get('/test',function ()

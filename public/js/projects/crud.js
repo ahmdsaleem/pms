@@ -1,6 +1,7 @@
 var ProjectController=(function () {
     var routes={
-        base: "projects/"
+        base: "projects/",
+        platform_fields:"projects/platform/fields/"
     };
     var table;
 
@@ -70,7 +71,7 @@ var ProjectController=(function () {
         {
             var ajaxSetup = GlobalController.functions.ajaxSetup();
             $.when(ajaxSetup).done(function () {
-                var editProject= GlobalController.functions.ajaxPromise("",routes.base + id,GlobalController.variables.methods.put);
+                var editProject= GlobalController.functions.ajaxPromise("",routes.platform_fields + id,GlobalController.variables.methods.put);
                 $.when(editProject).done(function (data) {
                    $('#edit-platform-select').val(null).trigger('change');
                    $('#edit-platform-select').val(data.platform_id).trigger('change');
@@ -185,6 +186,29 @@ var ProjectController=(function () {
             });
         },
 
+        renderFields: function(platform_id)
+        {
+
+            var ajaxSetup = GlobalController.functions.ajaxSetup();
+            $.when(ajaxSetup).done(function () {
+                var getFields= GlobalController.functions.ajaxPromise("",routes.platform_fields + platform_id,GlobalController.variables.methods.get);
+                $.when(getFields).done(function (data) {
+                    $('.dynamic-fields').remove();
+                    for(var i=0;i<data.length;i++) {
+                    $('#select-platform-form-group').after('' +
+                        '<div class="form-group dynamic-fields">'+
+                        '<label class="form-label">' + data[i].name + '</label>'+
+                        '<div class="form-control-wrapper">' +
+                        '<input class="form-control" type="text" name="'+ data[i].input_name +'">'+
+                        '</div> </div>'
+                    );
+                    }
+                });
+                $.when(getFields).fail(function (data) {
+
+                });
+            });
+        },
 
 
         bindEvents: function()
@@ -198,6 +222,12 @@ var ProjectController=(function () {
                 event.preventDefault();
                 ProjectController.updateProject();
             });
+
+            $("#assign-platform-select").on("change", function() {
+                var platform_id=$(this).val();
+                ProjectController.renderFields(platform_id);
+            });
+
         },
 
 

@@ -44,7 +44,7 @@
                         <h4 class="modal-title" id="myModalLabel">Create New Project</h4>
                         <form id="create-project-form" name="create-project-form">
                             {{ csrf_field() }}
-                            <div class="modal-body">
+                            <div id="create-project-modal-body" class="modal-body">
                                 <span id="form_output"></span>
                                 <div class="form-group">
                                     <label class="form-label" for="project-name">Project Name</label>
@@ -55,7 +55,7 @@
                                                type="text">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="select-platform-form-group">
                                     <label class="form-label" for="assign-platform-select">Platform</label>
                                         <div class="form-control-wrapper">
                                             <select class="bootstrap-select form-control" id="assign-platform-select" name="platform">
@@ -66,33 +66,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                <div class="form-group">
-                                    <label class="form-label" for="platform-api-url">API URL</label>
-                                    <div class="form-control-wrapper">
-                                        <input id="platform-url"
-                                               class="form-control"
-                                               name="url"
-                                               type="text">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" for="application-key">Application Key</label>
-                                    <div class="form-control-wrapper">
-                                        <input id="application-key"
-                                               class="form-control"
-                                               name="application_key"
-                                               type="text">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" for="api-password">Password</label>
-                                    <div class="form-control-wrapper">
-                                        <input id="api-password"
-                                               class="form-control"
-                                               name="password"
-                                               type="password">
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <label class="form-label" for="project-description">Description</label>
                                     <div class="form-control-wrapper">

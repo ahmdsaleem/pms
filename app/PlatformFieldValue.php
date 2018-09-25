@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PlatformFieldValue extends Model
 {
+    protected $fillable=['platform_field_id','project_id','value'];
+
     public function platformField()
     {
         return $this->belongsTo('App\PlatformField');

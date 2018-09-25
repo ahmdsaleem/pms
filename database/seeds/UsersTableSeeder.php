@@ -80,6 +80,42 @@ class UsersTableSeeder extends Seeder
         ]);
 
 
+        $codecanyon= \App\Platform::create([
+            'name' => 'Code Canyon'
+        ]);
+
+        $codecanyon_project= \App\Project::create([
+            'name'=>'CodeCanyon Project',
+            'platform_id' => $codecanyon->id,
+        ]);
+
+        $codecanyon_field1= \App\PlatformField::create([
+            'platform_id' => $codecanyon->id,
+            'name' => 'APPLICATION Full URL',
+            'input_name' => 'api_url'
+        ]);
+
+        $codecanyon_field1_value=\App\PlatformFieldValue::create([
+            'platform_field_id' => $codecanyon_field1->id,
+            'project_id' => $codecanyon_project->id,
+            'value'=> 'https://www.codecanyon.com'
+        ]);
+
+
+        $codecanyon_field2= \App\PlatformField::create([
+            'platform_id' => $codecanyon->id,
+            'name' => 'App Secret Key',
+            'input_name' => 'app_key'
+        ]);
+
+        $codecanyon_field2_value=\App\PlatformFieldValue::create([
+            'platform_field_id' => $codecanyon_field2->id,
+            'project_id' => $codecanyon_project->id,
+            'value'=> 'c4ab184147f311239c6f234895717284467c6744d32ed87ca4103f9aa5375c1a'
+        ]);
+
+
+
         factory(App\User::class,5)->create();
         factory(App\Platform::class,5)->create();
         factory(App\Project::class,7)->create();

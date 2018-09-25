@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Classes\Response;
 use App\Platform;
+use App\PlatformField;
+use App\PlatformFieldValue;
 use App\Project;
 use App\ProjectIntegration;
 use Illuminate\Http\Request;
@@ -23,7 +25,6 @@ class ProjectsController extends Controller
     {
 
         $response=new Response();
-
         try {
 
             $this->validate($request, [
@@ -36,13 +37,19 @@ class ProjectsController extends Controller
                 'platform_id' => $request->get('platform'),
                 ]);
 
+            foreach ($project->platform->platformFields->where('platform_id','=',$project->platform->id)->pluck('input_name') as $input_name)
+            {
+                $platform_field_id=PlatformField::where('input_name','=',$input_name)->
+                                                  where('platform_id','=',$project->platform->id)->get()->first()->id;
+
+                PlatformFieldValue::create([
+                   'platform_field_id' => $platform_field_id,
+                   'project_id' => $project->id,
+                    'value' => $request->get($input_name)
+                ]);
+            }
+            
             Auth::user()->projects()->attach($project->id);
-
-
-
-
-
-
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
         }
         catch(\Exception $e)
@@ -156,6 +163,13 @@ class ProjectsController extends Controller
         $parameters['input']=array();
         return $parameters;
 
+    }
+
+    public function getFields($id)
+    {
+        $platform= Platform::find($id);
+        $platform_fields=$platform->platformFields;
+        return response()->json($platform_fields);
     }
 
 
