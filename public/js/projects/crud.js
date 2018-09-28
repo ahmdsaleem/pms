@@ -30,7 +30,6 @@ var ProjectController=(function () {
                 rules: {
                     name: {
                         required: true,
-                        minlength:5,
                     },
                     platform : {
                         required: true
@@ -47,6 +46,14 @@ var ProjectController=(function () {
                     }
                 }
             });
+
+            $('input[fieldname="dynamic-attr"]').each(function () {
+                $(this).rules('add', {
+                    required: true,
+                    // another rule, etc.
+                });
+            });
+
             if($('#create-project-form').valid()) {
                 var form_data = $('#create-project-form').serialize();
                 var ajaxSetup = GlobalController.functions.ajaxSetup();
@@ -117,10 +124,6 @@ var ProjectController=(function () {
                     },
 
 
-                    password:{
-
-                    }
-
                 },
                 messages: {
                     email: {
@@ -129,6 +132,14 @@ var ProjectController=(function () {
 
                 }
 
+            });
+
+
+            $('input[fieldname="dynamic-attr-edit"]').each(function () {
+                $(this).rules('add', {
+                    required: true,
+                    // another rule, etc.
+                });
             });
 
             if($('#update-project-form').valid()) {
@@ -207,7 +218,7 @@ var ProjectController=(function () {
                         '<div class="form-group dynamic-fields">'+
                         '<label class="form-label">' + data[i].name + '</label>'+
                         '<div class="form-control-wrapper">' +
-                        '<input class="form-control" type="text" name="'+ data[i].input_name +'">'+
+                        '<input class="form-control" fieldname="dynamic-attr" type="text" name="'+ data[i].input_name +'">'+
                         '</div> </div>'
                     );
                     }
@@ -231,7 +242,7 @@ var ProjectController=(function () {
                             '<div class="form-group dynamic-fields-values">'+
                             '<label class="form-label">' + data.fields[i].name + '</label>'+
                             '<div class="form-control-wrapper">' +
-                            '<input class="form-control" type="text" name="'+ data.fields[i].input_name +'" value="'+data.values[i].field_value  +'">'+
+                            '<input class="form-control" type="text" fieldname="dynamic-attr-edit" name="'+ data.fields[i].input_name +'" value="'+data.values[i].field_value  +'">'+
                             '</div> </div>'
                         );
                     }
