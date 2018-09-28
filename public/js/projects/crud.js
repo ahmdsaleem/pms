@@ -31,11 +31,19 @@ var ProjectController=(function () {
                     name: {
                         required: true,
                         minlength:5,
-                    }
+                    },
+                    platform : {
+                        required: true
+                    },
+
+
                 },
                 messages: {
                     name: {
                         required: "Please type Project Name",
+                    },
+                    platform:{
+                        required: "Please Select the Platform"
                     }
                 }
             });
@@ -71,11 +79,10 @@ var ProjectController=(function () {
         {
             var ajaxSetup = GlobalController.functions.ajaxSetup();
             $.when(ajaxSetup).done(function () {
-                var editProject= GlobalController.functions.ajaxPromise("",routes.platform_fields + id,GlobalController.variables.methods.put);
+                var editProject= GlobalController.functions.ajaxPromise("",routes.base + id,GlobalController.variables.methods.put);
                 $.when(editProject).done(function (data) {
-                   $('#edit-platform-select').val(null).trigger('change');
-                   $('#edit-platform-select').val(data.platform_id).trigger('change');
                     $('#update-project-id').val(data.id);
+                    $('#edit-platform-select').val(data.platform_id).trigger('change');
                     $('#update-project-name').val(data.name);
                     $('#update-project-description').val(data.description);
                     $('#update-project-modal').modal('show');
@@ -108,6 +115,7 @@ var ProjectController=(function () {
                         required: true,
                         email: true
                     },
+
 
                     password:{
 
@@ -210,6 +218,30 @@ var ProjectController=(function () {
             });
         },
 
+        renderFieldswithValues: function(project_id,platform_id)
+        {
+            var ajaxSetup = GlobalController.functions.ajaxSetup();
+            $.when(ajaxSetup).done(function () {
+                var getFieldswithValues= GlobalController.functions.ajaxPromise("","projects/" + project_id + "/platform/" + platform_id,GlobalController.variables.methods.get);
+                $.when(getFieldswithValues).done(function (data) {
+                    $('.dynamic-fields-values').remove();
+                    for(var i=0;i<data.fields.length;i++) {
+
+                        $('#edit-platform-form-group').after('' +
+                            '<div class="form-group dynamic-fields-values">'+
+                            '<label class="form-label">' + data.fields[i].name + '</label>'+
+                            '<div class="form-control-wrapper">' +
+                            '<input class="form-control" type="text" name="'+ data.fields[i].input_name +'" value="'+data.values[i].field_value  +'">'+
+                            '</div> </div>'
+                        );
+                    }
+                });
+                $.when(getFieldswithValues).fail(function (data) {
+
+                });
+            });
+        },
+
 
         bindEvents: function()
         {
@@ -226,6 +258,12 @@ var ProjectController=(function () {
             $("#assign-platform-select").on("change", function() {
                 var platform_id=$(this).val();
                 ProjectController.renderFields(platform_id);
+            });
+
+            $("#edit-platform-select").on("change", function() {
+                var platform_id=$(this).val();
+                var project_id=$('#update-project-id').val();
+                ProjectController.renderFieldswithValues(project_id,platform_id);
             });
 
         },

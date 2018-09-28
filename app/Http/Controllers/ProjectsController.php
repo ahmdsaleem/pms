@@ -29,7 +29,9 @@ class ProjectsController extends Controller
 
             $this->validate($request, [
                 'name'=> 'required',
+                'platform' => 'required'
             ]);
+
 
             $project = Project::create([
                 'name' => $request->get('name'),
@@ -37,18 +39,19 @@ class ProjectsController extends Controller
                 'platform_id' => $request->get('platform'),
                 ]);
 
-            foreach ($project->platform->platformFields->where('platform_id','=',$project->platform->id)->pluck('input_name') as $input_name)
+            foreach ($project->platform->platformFields->pluck('input_name') as $input_name)
             {
                 $platform_field_id=PlatformField::where('input_name','=',$input_name)->
                                                   where('platform_id','=',$project->platform->id)->get()->first()->id;
-
-                PlatformFieldValue::create([
-                   'platform_field_id' => $platform_field_id,
-                   'project_id' => $project->id,
-                    'value' => $request->get($input_name)
-                ]);
+                if($request->has($input_name) && !empty($request->get($input_name))) {
+                    PlatformFieldValue::create([
+                        'platform_field_id' => $platform_field_id,
+                        'project_id'        => $project->id,
+                        'field_value'       => $request->get($input_name)
+                    ]);
+                }
             }
-            
+
             Auth::user()->projects()->attach($project->id);
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
         }
@@ -87,8 +90,21 @@ class ProjectsController extends Controller
             $project = Project::findOrFail($id);
             $project->name = $request->get('name');
             $project->description = $request->get('description');
-            $project->platform_id=$request->get('platform');
             $project->save();
+
+            foreach ($project->platform->platformFields->pluck('input_name') as $input_name)
+            {
+                $platform_field_id=PlatformField::where('input_name','=',$input_name)->
+                                                  where('platform_id','=',$project->platform->id)->get()->first()->id;
+
+                $platform_field_value=PlatformFieldValue::where('platform_field_id','=',$platform_field_id)->
+                                    where('project_id','=',$project->id)->get()->first();
+
+                $platform_field_value->field_value=$request->get($input_name);
+                $platform_field_value->save();
+            }
+
+
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
         }
         catch (\Exception $ex)
@@ -106,6 +122,11 @@ class ProjectsController extends Controller
         $response=new Response();
         try {
             $project = Project::findOrFail($id);
+
+            foreach ($project->platformFieldValues as $platformFieldValue)
+            {
+                $platformFieldValue->delete();
+            }
 
             foreach ($project->users as $user)
             {
@@ -171,6 +192,28 @@ class ProjectsController extends Controller
         $platform_fields=$platform->platformFields;
         return response()->json($platform_fields);
     }
+
+
+    public function getFieldsWithValues($pid,$id)
+    {
+        $parameters=array();
+        $platform= Platform::find($id);
+        $platform_fields=$platform->platformFields;
+        $parameters['fields']=$platform_fields;
+        $platform_fields_values=array();
+        foreach ($platform_fields as $platform_field)
+        {
+            $platform_field_value=$platform_field->platformFieldValues->where('project_id','=',$pid)->first();
+            if($platform_field_value == null)
+            {
+                $platform_field_value['field_value']="";
+            }
+            array_push($platform_fields_values,$platform_field_value);
+        }
+        $parameters['values']=$platform_fields_values;
+        return response()->json($parameters);
+    }
+
 
 
 }

@@ -11,9 +11,9 @@ class PlatformField extends Model
         return $this->belongsTo('App\Platform');
     }
 
-    public function platformFieldValue()
+    public function platformFieldValues()
     {
-        return $this->hasOne('App\PlatformFieldValue');
+        return $this->hasMany('App\PlatformFieldValue');
     }
 
 

@@ -19,5 +19,5 @@ return [
     'user.200' => "Operation Successfully Completed",
     'project.200'=> "Operation Successfully Completed",
     'project.205' => "Exception occured!",
-
+    'project.400' => "Error Occured"
 ];

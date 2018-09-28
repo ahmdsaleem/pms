@@ -42,6 +42,9 @@
         Route::delete('/projects/{id}','ProjectsController@destroy')->name('project.delete');
 
         Route::get('projects/platform/fields/{id}','ProjectsController@getFields');
+
+        Route::get('projects/{pid}/platform/{id}','ProjectsController@getFieldsWithValues');
+
     });
 
 // Customer Module Routes

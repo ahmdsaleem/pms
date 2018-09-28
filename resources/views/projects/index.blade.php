@@ -26,7 +26,7 @@
                 class="btn btn-inline btn-primary"
                 data-toggle="modal"
                 data-target="#create-project-modal">
-            Create New Project
+           <i class="font-icon font-icon-pencil"></i> Create New Project
         </button>
 
         <div class="modal fade"
@@ -124,10 +124,10 @@
                                                type="text">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="edit-platform-form-group">
                                     <label class="form-label" for="assign-platform-select">Platform</label>
                                     <div class="form-control-wrapper">
-                                        <select class="bootstrap-select form-control" id="edit-platform-select" name="platform">
+                                        <select class="bootstrap-select form-control" id="edit-platform-select" name="platform" disabled="true">
                                             @foreach($platforms as $platform)
                                                 <option value="{{ $platform->id }}">{{ $platform->name }}</option>
                                             @endforeach

@@ -19,7 +19,7 @@ class CreatePlatformFieldValuesTable extends Migration
             $table->foreign('platform_field_id')->references('id')->on('platform_fields');
             $table->integer('project_id')->unsigned();
             $table->foreign('project_id')->references('id')->on('projects');
-            $table->string('value');
+            $table->string('field_value');
             $table->timestamps();
         });
     }
