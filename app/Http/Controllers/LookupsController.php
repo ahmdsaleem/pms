@@ -44,6 +44,7 @@ class LookupsController extends Controller
             }
             else if($status_code==404)
             {
+                request()->session()->flash('error','Cannot connect to Api Please Provide Correct Credentials');
                 return view('lookups.show')->with('transactions',"")
                     ->with('project',$project);
             }

@@ -21,6 +21,15 @@
 
 @section('content')
 
+
+    @if($message=session()->get('error'))
+    <div class="alert alert-danger alert-no-border alert-close alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ $message }}
+    </div>
+    @endif
     <h3>{{ $project->name }} Look Up</h3>
 
 
