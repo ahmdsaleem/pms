@@ -32,7 +32,6 @@ class ProjectsController extends Controller
                 'platform' => 'required'
             ]);
 
-
             $project = Project::create([
                 'name' => $request->get('name'),
                 'description' => $request->get('description'),
@@ -43,6 +42,7 @@ class ProjectsController extends Controller
             {
                 $platform_field_id=PlatformField::where('input_name','=',$input_name)->
                                                   where('platform_id','=',$project->platform->id)->get()->first()->id;
+
                 if($request->has($input_name) && !empty($request->get($input_name))) {
                     PlatformFieldValue::create([
                         'platform_field_id' => $platform_field_id,

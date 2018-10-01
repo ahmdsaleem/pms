@@ -48,7 +48,19 @@
         </li>
 
 
-        @if(auth()->user()->role->id==1)
+        <li
+                @if(url()->full()== route('lookups'))
+                class="opened"
+                @endif
+        >
+            <a href="{{ route('lookups') }}">
+                <i class="glyphicon glyphicon-search"></i>
+                <span class="lbl">Lookups</span>
+            </a>
+        </li>
+
+
+    @if(auth()->user()->role->id==1)
         <li
 
         >

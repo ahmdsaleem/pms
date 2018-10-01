@@ -3,9 +3,9 @@
 
     Auth::routes();
 
-//User Module Routes
     Route::get('/', 'HomeController@index')->name('dashboard')->middleware('auth');
 
+    //User Module Routes
     Route::group(['middleware' =>['auth','admin']],function (){
 
 
@@ -65,11 +65,22 @@ Route::group(['middleware' =>'auth'],function () {
 
 });
 
+// Lookups Routes Group
+    Route::group(['middleware' =>'auth'],function () {
+
+        Route::get('/lookups','LookupsController@index')->name('lookups');
+
+        Route::get('/api/lookup/projects', 'LookupsController@getProjects');
+
+        Route::get('/lookup/project/{id}','LookupsController@show')->name('lookup.project');
+
+    });
 
 
 
 Route::get('/test',function ()
 {
+
 
     return view('test');
 
