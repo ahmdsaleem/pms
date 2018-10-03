@@ -38,6 +38,9 @@ class ProjectsController extends Controller
                 'platform_id' => $request->get('platform'),
                 ]);
 
+            $project->url=route('project.ipn.url',['id' => $project->id]);
+            $project->save();
+
             foreach ($project->platform->platformFields->pluck('input_name') as $input_name)
             {
                 $platform_field_id=PlatformField::where('input_name','=',$input_name)->

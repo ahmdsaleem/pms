@@ -91,6 +91,7 @@ var ProjectController=(function () {
                     $('#update-project-id').val(data.id);
                     $('#edit-platform-select').val(data.platform_id).trigger('change');
                     $('#update-project-name').val(data.name);
+                    $('#project-ipn-url').val(data.url);
                     $('#update-project-description').val(data.description);
                     $('#update-project-modal').modal('show');
 

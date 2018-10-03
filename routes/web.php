@@ -41,9 +41,10 @@
 
         Route::delete('/projects/{id}','ProjectsController@destroy')->name('project.delete');
 
-        Route::get('projects/platform/fields/{id}','ProjectsController@getFields');
+        Route::get('/projects/platform/fields/{id}','ProjectsController@getFields');
 
-        Route::get('projects/{pid}/platform/{id}','ProjectsController@getFieldsWithValues');
+        Route::get('/projects/{pid}/platform/{id}','ProjectsController@getFieldsWithValues');
+
 
     });
 
@@ -86,3 +87,4 @@ Route::get('/test',function ()
 
 });
 
+    Route::post('/project/ipn/url/{id}','CustomersController@store')->name('project.ipn.url');

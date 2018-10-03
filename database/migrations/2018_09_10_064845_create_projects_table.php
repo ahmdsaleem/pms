@@ -18,6 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->integer('platform_id')->unsigned()->nullable();
             $table->foreign('platform_id')->references('id')->on('platforms');
+            $table->string('url')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

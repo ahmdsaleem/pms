@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\IpnTransaction;
+use App\PlatformFieldValue;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +14,71 @@ class CustomersController extends Controller
     public function index()
     {
         return view('customers.index');
+    }
+
+
+    function jvzipnVerification() {
+        $secretKey = "FKUqVrWo92yQne6VCmjB";
+        $pop = "";
+        $ipnFields = array();
+        foreach ($_POST AS $key => $value) {
+            if ($key == "cverify") {
+                continue;
+            }
+            $ipnFields[] = $key;
+        }
+        sort($ipnFields);
+        foreach ($ipnFields as $field) {
+            // if Magic Quotes are enabled $_POST[$field] will need to be
+            // un-escaped before being appended to $pop
+            $pop = $pop . $_POST[$field] . "|";
+        }
+        $pop = $pop . $secretKey;
+        if ('UTF-8' != mb_detect_encoding($pop))
+        {
+            $pop = mb_convert_encoding($pop, "UTF-8");
+        }
+        $calcedVerify = sha1($pop);
+        $calcedVerify = strtoupper(substr($calcedVerify,0,8));
+        return $calcedVerify == $_POST["cverify"];
+    }
+
+
+    public function store(Request $request)
+    {
+        $this->validate($request,[
+            'ccustname' =>'required',
+            'ccustemail'=>'required'
+        ]);
+
+        $project_id=PlatformFieldValue::where('field_value','=',$request->get('cproditem'))->first()->project_id;
+
+        $customer=Customer::where('email','=',$request->get('ccustemail'))->where('project_id','=',$project_id)->first();
+
+        if($customer==null)
+        {
+            $customer=Customer::create([
+                'name' => $request->get('ccustname'),
+                'email' => $request->get('ccustemail'),
+                'state' => $request->get('ccuststate'),
+                'country_code' => $request->get('ccustcc'),
+                'project_id' => $project_id
+            ]);
+        }
+
+        IpnTransaction::create([
+            'customer_id' => $customer->id,
+            'project_id'=> $project_id,
+            'type' => $request->get('ctransaction'),
+            'amount_transfered' => $request->get('ctransamount'),
+            'payment_method' => $request->get('ctranspaymentmethod'),
+            'transaction_id' =>$request->get('ctransreceipt'),
+            'time' => $request->get('ctranstime'),
+            ]);
+
+
+
+
     }
 
 
@@ -60,8 +127,6 @@ class CustomersController extends Controller
         foreach ($customers as $customer)
         {
             $customer['project_assigned']=$customer->project->name;
-            $customer['action']='<a onclick=""> <l title="Edit User Details" style="margin:10px" class="fa fa-pencil-square-o"></l> </a>'.
-                '<a onclick=""> <l title="Delete User" style="margin:10px" class="font-icon font-icon-trash"></l></a>';
 
         }
         $parameters['data']=$customers;

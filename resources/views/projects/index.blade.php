@@ -134,12 +134,20 @@
                                         </select>
                                     </div>
                                 </div>
-
+                                <div class="form-group">
+                                    <label class="form-label" for="project-ipn-url">Project IPN Url</label>
+                                    <div class="form-control-wrapper">
+                                        <input id="project-ipn-url"
+                                               class="form-control"
+                                               name="url"
+                                               type="text" readonly>
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <label class="form-label" for="update-project-description">Description</label>
                                     <div class="form-control-wrapper">
-                                        <textarea class="form-control" name="description" id="update-project-description" rows="8"></textarea>
+                                        <textarea class="form-control" name="description" id="update-project-description" rows="2"></textarea>
                                     </div>
                                 </div>
 

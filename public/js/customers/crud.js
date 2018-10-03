@@ -25,8 +25,10 @@ var CustomerController=(function () {
                 "columns": [
                     {data: 'id', name: 'id', searchable:true},
                     {data: 'name', name: 'name',searchable:true},
+                    {data: 'email', name: 'email',searchable:true},
+                    {data: 'state', name: 'state',searchable:true},
+                    {data: 'country_code', name: 'country_code',searchable:true},
                     {data: 'project_assigned', name: 'project_assigned',searchable:true},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });
         },

@@ -8,6 +8,7 @@
     var $api_parameters= array();
     var $project;
     var $result;
+
         public function SetCredentials($project)
         {
             $this->project=$project;

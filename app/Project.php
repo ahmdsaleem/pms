@@ -13,6 +13,11 @@ class Project extends Model
         return $this->belongsToMany('App\User');
     }
 
+    public function ipnTransactions()
+    {
+        return $this->hasMany('App\IpnTransaction');
+    }
+
     public function customers()
     {
         return $this->hasMany('App\Customer');

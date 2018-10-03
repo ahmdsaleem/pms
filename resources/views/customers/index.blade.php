@@ -57,15 +57,18 @@
     <br>
 
     <div class="row">
-        <div class="box-typical-body offset-md-1 col-md-8">
+        <div class="box-typical-body offset-md-1 col-md-9">
             <div class="table-responsive">
                 <table class="table table-hover" id="customers-table">
                     <thead>
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th>Email</th>
+                        <th>State</th>
+                        <th>Country Code</th>
                         <th>Projects Assigned</th>
-                        <th>Operations</th>
+
                     </tr>
                     </thead>
                     <tbody>

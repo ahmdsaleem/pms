@@ -56,6 +56,19 @@ class UsersTableSeeder extends Seeder
             'input_name' => 'password'
         ]);
 
+        $jvzoo_field4= \App\PlatformField::create([
+            'platform_id' => $jvzoo->id,
+            'name' => 'Secret Key',
+            'input_name' => 'secret_key'
+        ]);
+
+
+        $jvzoo_field5= \App\PlatformField::create([
+            'platform_id' => $jvzoo->id,
+            'name' => 'JVZOO Product Number',
+            'input_name' => 'product_number'
+        ]);
+
 
         $codecanyon= \App\Platform::create([
             'name' => 'Code Canyon'
