@@ -56,7 +56,7 @@ class ProjectsController extends Controller
             }
 
             Auth::user()->projects()->attach($project->id);
-            $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');
+            $response->setResponse(true, 200,"Project IPN URL: ".$project->url);
         }
         catch(\Exception $e)
         {

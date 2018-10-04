@@ -66,7 +66,7 @@ var ProjectController=(function () {
                             title: 'Success!',
                             text: data.message,
                             type: 'success',
-                            timer: '4000'
+
                         })
                     });
                     $.when(createProject).fail(function (data) {
