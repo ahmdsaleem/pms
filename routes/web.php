@@ -64,6 +64,8 @@ Route::group(['middleware' =>'auth'],function () {
 
     Route::delete('/customers/{id}','CustomersController@destroy')->name('customer.delete');
 
+    Route::get('/customers/{id}','CustomersController@show')->name('customer.show');
+
 });
 
 // Lookups Routes Group
@@ -83,8 +85,10 @@ Route::get('/test',function ()
 {
 
 
-    return view('test');
+    return \Carbon\Carbon::createFromTimestamp(1538636587)->toDateTimeString();
+//    return Carbon\Carbon::parse(1538636587)->toDateTimeString();
 
 });
+
 
     Route::post('/project/ipn/url/{id}','CustomersController@store')->name('project.ipn.url');

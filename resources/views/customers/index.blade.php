@@ -68,6 +68,7 @@
                         <th>State</th>
                         <th>Country Code</th>
                         <th>Projects Assigned</th>
+                        <th>Operations</th>
 
                     </tr>
                     </thead>

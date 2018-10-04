@@ -6,6 +6,7 @@ use App\Customer;
 use App\IpnTransaction;
 use App\PlatformFieldValue;
 use Carbon\Carbon;
+use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,6 +16,21 @@ class CustomersController extends Controller
     {
         return view('customers.index');
     }
+
+
+    public function show($id)
+    {
+        $customer=Customer::find($id);
+        $transactions=$customer->ipnTransactions->groupBy(function($item)
+        {
+            return Carbon::parse($item->time)->format('d-M-y');
+        });
+
+        return view('customers.show')->with('customer',$customer)
+                                          ->with('project',$customer->project)
+                                          ->with('transactions',$transactions);
+    }
+
 
 
     function jvzipnVerification() {
@@ -44,16 +60,18 @@ class CustomersController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
+
+        //if(!$this->jvzipnVerification()) return;
+
         $this->validate($request,[
             'ccustname' =>'required',
             'ccustemail'=>'required'
         ]);
 
-        $project_id=PlatformFieldValue::where('field_value','=',$request->get('cproditem'))->first()->project_id;
-
-        $customer=Customer::where('email','=',$request->get('ccustemail'))->where('project_id','=',$project_id)->first();
+        $project_id=$id;
+        $customer=Customer::where('email', $request->get('ccustemail'))->where('project_id', $project_id)->first();
 
         if($customer==null)
         {
@@ -66,6 +84,8 @@ class CustomersController extends Controller
             ]);
         }
 
+        $time=Carbon::createFromTimestamp($request->get('ctranstime'))->toDateTimeString();
+
         IpnTransaction::create([
             'customer_id' => $customer->id,
             'project_id'=> $project_id,
@@ -73,11 +93,8 @@ class CustomersController extends Controller
             'amount_transfered' => $request->get('ctransamount'),
             'payment_method' => $request->get('ctranspaymentmethod'),
             'transaction_id' =>$request->get('ctransreceipt'),
-            'time' => $request->get('ctranstime'),
+            'time' => $time,
             ]);
-
-
-
 
     }
 
@@ -127,6 +144,7 @@ class CustomersController extends Controller
         foreach ($customers as $customer)
         {
             $customer['project_assigned']=$customer->project->name;
+            $customer['action']='<a href="'.route('customer.show',['id' => $customer->id]).'"> <l title="View all Transactions" style="margin:10px" class="glyphicon glyphicon-search"></l> </a>';
 
         }
         $parameters['data']=$customers;
