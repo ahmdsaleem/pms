@@ -42,8 +42,6 @@
                     <th>Transaction ID</th>
                     <th>Customer Name</th>
                     <th>Email</th>
-                    <th>Product ID</th>
-                    <th>Product Name</th>
                     <th>Price</th>
                     <th>Status</th>
                     <th>Date</th>
@@ -56,9 +54,7 @@
                         <td>{{ $transaction->transaction_id }}</td>
                         <td>{{ $transaction->first_name." ".$transaction->last_name }}</td>
                         <td>{{ $transaction->customer_email }}</td>
-                        <td>{{ $transaction->product_id }}</td>
-                        <td>{{ $transaction->product_name }}</td>
-                        <td>{{ $transaction->price }}</td>
+                        <td>${{ $transaction->price }}</td>
                         <td>{{ $transaction->status }}</td>
                         <td>{{\Carbon\Carbon::parse($transaction->date)->toDayDateTimeString()  }}</td>
                     </tr>

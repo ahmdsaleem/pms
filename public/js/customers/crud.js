@@ -45,7 +45,7 @@ var CustomerController=(function () {
             $('#daterange').daterangepicker({
                 "timePicker": true,
                 startDate: moment().subtract(7, 'day'),
-                endDate: moment(),
+                endDate: moment().add(1,'day'),
                 ranges: {
                     'Today': [moment(), moment()],
                     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],

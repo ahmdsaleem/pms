@@ -135,10 +135,17 @@ class ProjectsController extends Controller
             {
                 $user->projects()->detach($project->id);
             }
+
+            foreach ($project->ipnTransactions as $ipnTransaction)
+            {
+                $ipnTransaction->delete();
+            }
+
             foreach ($project->customers as $customer)
             {
                 $customer->delete();
             }
+
 
             Project::destroy($id);
             $response->setResponse(true, 200, 'auth'.'.'.SELF::MODULE . '.' . '200');

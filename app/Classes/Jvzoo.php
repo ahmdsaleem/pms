@@ -66,7 +66,7 @@
                 array_push($filtered_results,$result);
             }
         }
-        
+
         return $filtered_results;
 
     }
