@@ -144,7 +144,7 @@ class CustomersController extends Controller
         foreach ($customers as $customer)
         {
             $customer['project_assigned']=$customer->project->name;
-            $customer['action']='<a href="'.route('customer.show',['id' => $customer->id]).'"> <l title="View all Transactions" style="margin:10px" class="glyphicon glyphicon-search"></l> </a>';
+            $customer['action']='<a href="'.route('customer.show',['id' => $customer->id]).'"> <l title="View all Transactions" style="margin:10px" class="font-icon font-icon-eye"></l> </a>';
 
         }
         $parameters['data']=$customers;

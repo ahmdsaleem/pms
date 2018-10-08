@@ -38,6 +38,7 @@
                 $this->result = $client->request('GET', $this->api_parameters['api_url'], [
                     'auth' => [$this->api_parameters['app_key'], $this->api_parameters['password']]
                 ]);
+
             }
             catch (\Exception $exception)
             {
@@ -53,7 +54,20 @@
 
         $data=json_decode($this->result->getBody()->getContents());
 
-        return $data;
+        $results=$data->results;
+
+        $filtered_results=array();
+
+
+        foreach ($results as $result)
+        {
+            if($result->product_id == $this->api_parameters['product_number'])
+            {
+                array_push($filtered_results,$result);
+            }
+        }
+        
+        return $filtered_results;
 
     }
 

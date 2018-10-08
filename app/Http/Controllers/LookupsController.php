@@ -51,7 +51,7 @@ class LookupsController extends Controller
             else if($status_code==200)
             {
                 $data=$jvzoo->getTransactions();
-                return view('lookups.show')->with('transactions',$data->results)
+                return view('lookups.show')->with('transactions',$data)
                     ->with('project',$project);
             }
 
