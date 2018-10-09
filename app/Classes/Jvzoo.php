@@ -56,18 +56,18 @@
 
         $results=$data->results;
 
-        $filtered_results=array();
+//        $filtered_results=array();
+//
+//
+//        foreach ($results as $result)
+//        {
+//            if($result->product_id == $this->api_parameters['product_number'])
+//            {
+//                array_push($filtered_results,$result);
+//            }
+//        }
 
-
-        foreach ($results as $result)
-        {
-            if($result->product_id == $this->api_parameters['product_number'])
-            {
-                array_push($filtered_results,$result);
-            }
-        }
-
-        return $filtered_results;
+        return $results;
 
     }
 

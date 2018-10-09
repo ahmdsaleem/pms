@@ -257,6 +257,9 @@ var ProjectController=(function () {
 
         bindEvents: function()
         {
+
+            // $( document ).tooltip();
+
             $('#project-save').on('click',function(){
                 event.preventDefault();
                 ProjectController.createProject();

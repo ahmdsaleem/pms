@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/lib/font-awesome/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/lib/bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+    {{--<link rel="stylesheet" type="text/css" href="{{ asset('css/lib/jqueryui/jquery-ui.min.css') }}" >--}}
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     <link rel="stylesheet" href="{{ asset('css/separate/vendor/bootstrap-select/bootstrap-select.min.css') }}">
@@ -121,7 +122,7 @@
                                         <input id="update-project-name"
                                                class="form-control"
                                                name="name"
-                                               type="text">
+                                               type="text" title="Type the Name of Project">
                                     </div>
                                 </div>
                                 <div class="form-group" id="edit-platform-form-group">
@@ -198,6 +199,7 @@
     <script src="{{ asset('js/lib/tether/tether.min.js') }}"></script>
     <script src="{{ asset('js/lib/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/plugins.js') }}"></script>
+    {{--<script src="{{ asset('js/lib/jqueryui/jquery-ui.min.js') }}"></script>--}}
     <script src="{{ asset('js/lib/peity/jquery.peity.min.js') }}"></script>
     <script src="{{ asset('js/lib/table-edit/jquery.tabledit.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>

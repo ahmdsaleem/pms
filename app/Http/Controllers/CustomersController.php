@@ -86,15 +86,19 @@ class CustomersController extends Controller
 
         $time=Carbon::createFromTimestamp($request->get('ctranstime'))->toDateTimeString();
 
-        IpnTransaction::create([
+        $ipnTransaction=IpnTransaction::create([
             'customer_id' => $customer->id,
             'project_id'=> $project_id,
             'type' => $request->get('ctransaction'),
             'amount_transfered' => $request->get('ctransamount'),
             'payment_method' => $request->get('ctranspaymentmethod'),
             'transaction_id' =>$request->get('ctransreceipt'),
-            'time' => $time,
+            'product_id' => $request->get('cproditem'),
+            'product_name' => $request->get('cprodtitle'),
+            'form_dump' => json_encode($request->all()),
+            'time' => $time
             ]);
+
 
     }
 
